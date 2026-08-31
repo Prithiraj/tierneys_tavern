@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "name": "Tierney's Tavern",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "tierneys-tavern-montclair",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.219748973846,
+          40.822509225043
+        ]
+      },
+      "properties": {
+        "name": "Tierney's Tavern",
+        "address": "138 Valley Road, Montclair, NJ 07042, United States",
+        "telephone": "+1-862-596-5986",
+        "website": "https://www.tierneystavern1934.com/",
+        "founded": 1934
+      }
+    }
+  ]
+}
