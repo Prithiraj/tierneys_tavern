@@ -5,6 +5,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST="$ROOT/dist"
 VENV="$ROOT/.public-build-venv"
 
+export PUBLIC_SITE_URL="${PUBLIC_SITE_URL:-}"
+export COMMIT_SHA="${COMMIT_SHA:-local}"
+
 required=(
   "index.html"
   "scripts/generate_public_assets.py"
@@ -31,12 +34,22 @@ else
   rm -rf "$VENV"
 fi
 
+# The site is uploaded as a prebuilt artifact; this also protects future
+# branch-based publishing from an unintended Jekyll pass.
+touch "$DIST/.nojekyll"
+
 cat > "$DIST/robots.txt" <<'ROBOTS'
 User-agent: *
 Disallow: /
 ROBOTS
 
-cat > "$DIST/404.html" <<'HTML'
+if [[ -n "$PUBLIC_SITE_URL" ]]; then
+  HOME_HREF="${PUBLIC_SITE_URL%/}/"
+else
+  HOME_HREF="./"
+fi
+
+cat > "$DIST/404.html" <<HTML
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,7 +62,7 @@ cat > "$DIST/404.html" <<'HTML'
     :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#050806;color:#f2eddf;font-family:system-ui,sans-serif;padding:1.25rem}main{width:min(760px,100%);border:1px solid rgba(98,255,157,.34);padding:clamp(1.5rem,6vw,4rem);background:radial-gradient(circle at 85% 10%,rgba(13,81,52,.35),transparent 38%)}small{color:#62ff9d;letter-spacing:.12em;text-transform:uppercase;font-family:ui-monospace,monospace}h1{font-size:clamp(3rem,12vw,8rem);line-height:.85;letter-spacing:-.07em;margin:1.4rem 0}p{color:#a9b3ad;line-height:1.7;max-width:56ch}a{display:inline-block;margin-top:1.5rem;padding:.8rem 1rem;background:#62ff9d;color:#050806;text-decoration:none;font-weight:750;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}
   </style>
 </head>
-<body><main><small>Error 404 // signal absent</small><h1>NOT<br>FOUND.</h1><p>This route is not part of the Tierney's Tavern concept.</p><a href="/">Return home →</a></main></body>
+<body><main><small>Error 404 // signal absent</small><h1>NOT<br>FOUND.</h1><p>This route is not part of the Tierney's Tavern concept.</p><a href="$HOME_HREF">Return home →</a></main></body>
 </html>
 HTML
 
@@ -111,7 +124,7 @@ meta = {
     "coordinates": [40.822509225043, -74.219748973846],
     "source_commit": os.environ.get("COMMIT_SHA", "local"),
     "public_site_url": public_url or None,
-    "deployment_type": "public-link, noindex, independent concept",
+    "deployment_type": "github-pages, passwordless, noindex, independent concept",
     "third_party_editorial_photos_published": False,
 }
 (root / "deploy-meta.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
