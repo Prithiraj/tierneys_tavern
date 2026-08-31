@@ -67,6 +67,21 @@ class Parser(HTMLParser):
 root = Path(sys.argv[1])
 index = root / "index.html"
 source = index.read_text(encoding="utf-8")
+public_url = os.environ.get("PUBLIC_SITE_URL", "").strip().rstrip("/")
+
+if public_url:
+    social_url = f"{public_url}/assets/public/tierneys-social-card.png"
+    source = source.replace(
+        'content="/assets/public/tierneys-social-card.png"',
+        f'content="{social_url}"',
+    )
+    source = source.replace(
+        "  <title>Tierney's Tavern // Where Friends Meet</title>",
+        "  <title>Tierney's Tavern // Where Friends Meet</title>\n"
+        f'  <link rel="canonical" href="{public_url}/">\n'
+        f'  <meta property="og:url" content="{public_url}/">',
+    )
+    index.write_text(source, encoding="utf-8")
 
 for forbidden in (
     "RESEARCH BEFORE RENDER",
@@ -95,6 +110,7 @@ meta = {
     "venue": "138 Valley Road, Montclair, NJ 07042",
     "coordinates": [40.822509225043, -74.219748973846],
     "source_commit": os.environ.get("COMMIT_SHA", "local"),
+    "public_site_url": public_url or None,
     "deployment_type": "public-link, noindex, independent concept",
     "third_party_editorial_photos_published": False,
 }
