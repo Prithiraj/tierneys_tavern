@@ -49,7 +49,7 @@ jobs:
         run: |
           test -s dist/index.html
           test -s dist/404.html
-          test -s dist/.nojekyll
+          test -e dist/.nojekyll
           test -s dist/assets/public/tierneys-social-card.png
           ! grep -R -i -E "research before render|real asset board|assets/reference|ASSET_MANIFEST|WEBSITE_DESIGN_PLAN|netlify" dist
           grep -F "$SITE_URL/assets/public/tierneys-social-card.png" dist/index.html
