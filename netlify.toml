@@ -1,0 +1,44 @@
+[build]
+  command = "bash scripts/build_netlify.sh"
+  publish = "dist"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[redirects]]
+  from = "/map"
+  to = "/location/tierneys-map.html"
+  status = 302
+
+[[redirects]]
+  from = "/plan"
+  to = "/WEBSITE_DESIGN_PLAN.md"
+  status = 302
+
+[[redirects]]
+  from = "/sources"
+  to = "/ASSET_MANIFEST.md"
+  status = 302
