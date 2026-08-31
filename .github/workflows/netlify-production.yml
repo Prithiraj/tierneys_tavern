@@ -1,0 +1,103 @@
+name: Build and deploy public Netlify site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - netlify.toml
+      - scripts/build_netlify.sh
+      - scripts/generate_public_assets.py
+      - .github/workflows/netlify-production.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: netlify-production-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Validate public site and deploy when connected
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build public-only bundle
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: bash scripts/build_netlify.sh
+
+      - name: Verify outreach constraints
+        run: |
+          test -s dist/index.html
+          test -s dist/assets/public/tierneys-social-card.png
+          ! grep -R -i -E "research before render|real asset board|assets/reference|ASSET_MANIFEST|WEBSITE_DESIGN_PLAN" dist
+          test "$(find dist -type f | wc -l)" -le 8
+
+      - name: Preserve validated public bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tierneys-public-netlify-site
+          path: dist
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Deploy to connected Netlify production project
+        id: deploy
+        if: env.NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != ''
+        shell: bash
+        run: |
+          set -o pipefail
+          npx --yes netlify-cli@latest deploy \
+            --prod \
+            --dir=dist \
+            --auth="$NETLIFY_AUTH_TOKEN" \
+            --site="$NETLIFY_SITE_ID" \
+            --message="Tierney's mobile outreach site $GITHUB_SHA" \
+            --json | tee netlify-deploy.json
+
+          node <<'NODE'
+          const fs = require('fs');
+          const text = fs.readFileSync('netlify-deploy.json', 'utf8').trim();
+          const first = text.indexOf('{');
+          const last = text.lastIndexOf('}');
+          const data = first >= 0 && last > first ? JSON.parse(text.slice(first, last + 1)) : {};
+          const url = data.ssl_url || data.url || data.deploy_url || data.site_url;
+          if (!url) throw new Error('Netlify did not return a production URL');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `url=${url}\n`);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Public Netlify deployment\n\n${url}\n`);
+          console.log(`PUBLIC_SITE=${url}`);
+          NODE
+
+      - name: Explain connection requirement
+        if: env.NETLIFY_AUTH_TOKEN == '' || env.NETLIFY_SITE_ID == ''
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'MD'
+          ## Public site validated; Netlify connection required
+
+          The deployable bundle passed validation. Add these repository secrets to enable the passwordless production deployment:
+
+          - `NETLIFY_AUTH_TOKEN`
+          - `NETLIFY_SITE_ID`
+
+          In Netlify, set **Project configuration → General → Visitor access → Project visibility** to **Public**. Anonymous `--allow-anonymous` deployment is intentionally not used because it creates a temporary protected project.
+          MD
