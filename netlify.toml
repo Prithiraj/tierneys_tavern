@@ -4,6 +4,7 @@
 
 [build.environment]
   PYTHON_VERSION = "3.12"
+  PIP_DISABLE_PIP_VERSION_CHECK = "1"
 
 [[headers]]
   for = "/*"
@@ -12,11 +13,13 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
 
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/public/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=86400, must-revalidate"
 
 [[headers]]
   for = "/*.html"
@@ -30,15 +33,6 @@
 
 [[redirects]]
   from = "/map"
-  to = "/location/tierneys-map.html"
+  to = "https://www.google.com/maps/search/?api=1&query=Tierney%27s%20Tavern%2C%20138%20Valley%20Road%2C%20Montclair%2C%20NJ%2007042"
   status = 302
-
-[[redirects]]
-  from = "/plan"
-  to = "/WEBSITE_DESIGN_PLAN.md"
-  status = 302
-
-[[redirects]]
-  from = "/sources"
-  to = "/ASSET_MANIFEST.md"
-  status = 302
+  force = true
