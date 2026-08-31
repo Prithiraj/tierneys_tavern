@@ -9,6 +9,7 @@ cannot silently claim that collection succeeded.
 from __future__ import annotations
 
 import hashlib
+from io import BytesIO
 import json
 import os
 from pathlib import Path
@@ -16,6 +17,8 @@ import sys
 import tempfile
 import urllib.error
 import urllib.request
+
+from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +49,25 @@ def image_signature(data: bytes) -> str | None:
         if data[8:12] in {b"avif", b"avis"}:
             return "image/avif"
     return None
+
+
+def normalize_for_target(data: bytes, detected_type: str, target: Path) -> tuple[bytes, str]:
+    """Return bytes whose encoding matches the declared repository extension."""
+
+    if target.suffix.lower() in {".jpg", ".jpeg"} and detected_type == "image/webp":
+        with Image.open(BytesIO(data)) as source:
+            image = source.convert("RGB")
+            output = BytesIO()
+            image.save(
+                output,
+                format="JPEG",
+                quality=92,
+                optimize=True,
+                progressive=True,
+            )
+        return output.getvalue(), "image/jpeg"
+
+    return data, detected_type
 
 
 def fetch(asset: dict[str, object]) -> tuple[Path, str, int]:
@@ -88,6 +110,12 @@ def fetch(asset: dict[str, object]) -> tuple[Path, str, int]:
         raise RuntimeError(
             f"{relative_path}: detected {detected_type}, expected one of "
             f"{sorted(allowed_types)}"
+        )
+
+    data, stored_type = normalize_for_target(data, detected_type, target)
+    if target.suffix.lower() in {".jpg", ".jpeg"} and stored_type != "image/jpeg":
+        raise RuntimeError(
+            f"{relative_path}: could not normalize {detected_type} to JPEG"
         )
 
     if len(data) < minimum_bytes:
