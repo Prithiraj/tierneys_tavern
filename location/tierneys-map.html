@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Exact map location for Tierney's Tavern at 138 Valley Road, Montclair, New Jersey.">
+  <title>Tierney's Tavern — Exact Location</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --wood: #070908;
+      --green: #62ff9d;
+      --tavern: #0d5134;
+      --amber: #ffb13b;
+      --bone: #f0ebdd;
+      --smoke: #a6aea9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(98,255,157,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(98,255,157,.035) 1px, transparent 1px),
+        var(--wood);
+      background-size: 32px 32px;
+      color: var(--bone);
+      font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }
+    .eyebrow { color: var(--green); font: 700 12px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .14em; }
+    h1 { max-width: 900px; margin: 14px 0 10px; font-size: clamp(38px, 8vw, 92px); line-height: .92; letter-spacing: -.055em; }
+    .address { color: var(--smoke); font-size: clamp(17px, 2vw, 22px); }
+    .coordinates { margin-top: 8px; color: var(--amber); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    a {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
+      padding: 0 18px; border: 1px solid var(--green); border-radius: 999px;
+      color: var(--bone); text-decoration: none; background: rgba(13,81,52,.34);
+    }
+    a:hover, a:focus-visible { background: var(--green); color: var(--wood); outline: none; }
+    .map-shell { position: relative; overflow: hidden; border: 1px solid rgba(98,255,157,.45); border-radius: 24px; background: #111; }
+    iframe { display: block; width: 100%; height: min(66vh, 640px); border: 0; filter: saturate(.72) contrast(1.03); }
+    .status {
+      position: absolute; left: 18px; bottom: 18px; max-width: calc(100% - 36px);
+      padding: 10px 13px; border: 1px solid rgba(98,255,157,.5); border-radius: 10px;
+      background: rgba(7,9,8,.88); backdrop-filter: blur(12px);
+      font: 700 12px/1.35 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .status::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 18px var(--green); }
+    footer { margin-top: 18px; color: var(--smoke); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">TT//1934 · LOCATION SIGNAL ACQUIRED</p>
+    <h1>138 Valley Road.</h1>
+    <div class="address">Tierney's Tavern · Montclair, New Jersey 07042 · United States</div>
+    <div class="coordinates">40.822509225043, -74.219748973846</div>
+    <nav class="actions" aria-label="Directions">
+      <a href="https://www.google.com/maps/search/?api=1&query=Tierney%27s%20Tavern%2C%20138%20Valley%20Road%2C%20Montclair%2C%20NJ%2007042">Google Maps</a>
+      <a href="https://maps.apple.com/?ll=40.822509225043%2C-74.219748973846&q=Tierney%27s%20Tavern">Apple Maps</a>
+      <a href="https://www.openstreetmap.org/?mlat=40.822509225043&mlon=-74.219748973846#map=19/40.822509225043/-74.219748973846">OpenStreetMap</a>
+      <a href="tel:+18625965986">Call (862) 596-5986</a>
+    </nav>
+    <section class="map-shell" aria-label="Map">
+      <iframe
+        title="Tierney's Tavern at 138 Valley Road, Montclair, New Jersey"
+        src="https://www.google.com/maps?q=40.822509225043,-74.219748973846&z=18&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+      <div class="status">TIERNEY'S TAVERN · EXACT POINT · 40.822509225043 / -74.219748973846</div>
+    </section>
+    <footer>
+      The map point was verified September 1, 2026. Map imagery and directions are supplied by their respective providers.
+    </footer>
+  </main>
+</body>
+</html>
