@@ -57,6 +57,7 @@ python3 - "$DIST" <<'PY'
 from html.parser import HTMLParser
 from pathlib import Path
 import json
+import os
 import struct
 import sys
 
@@ -93,7 +94,7 @@ meta = {
     "project": "Tierney's Tavern passwordless mobile outreach concept",
     "venue": "138 Valley Road, Montclair, NJ 07042",
     "coordinates": [40.822509225043, -74.219748973846],
-    "source_commit": "${COMMIT_SHA:-local}",
+    "source_commit": os.environ.get("COMMIT_SHA", "local"),
     "deployment_type": "public-link, noindex, independent concept",
     "third_party_editorial_photos_published": False,
 }
