@@ -1,0 +1,33 @@
+{
+  "name": "Tierney's Tavern",
+  "tagline": "Where friends meet",
+  "founded": 1934,
+  "address": {
+    "public": "138 Valley Road, Montclair, NJ 07042, United States",
+    "official_site_range": "134-138 Valley Road, Montclair, NJ 07042, United States",
+    "street": "138 Valley Road",
+    "city": "Montclair",
+    "state": "NJ",
+    "postal_code": "07042",
+    "country": "US"
+  },
+  "coordinates": {
+    "latitude": 40.822509225043,
+    "longitude": -74.219748973846
+  },
+  "telephone": "+1-862-596-5986",
+  "time_zone": "America/New_York",
+  "map_urls": {
+    "google_place": "https://www.google.com/maps/search/?api=1&query=Tierney%27s%20Tavern%2C%20138%20Valley%20Road%2C%20Montclair%2C%20NJ%2007042",
+    "google_coordinates": "https://www.google.com/maps/search/?api=1&query=40.822509225043%2C-74.219748973846",
+    "google_embed": "https://www.google.com/maps?q=40.822509225043,-74.219748973846&z=18&output=embed",
+    "apple": "https://maps.apple.com/?ll=40.822509225043%2C-74.219748973846&q=Tierney%27s%20Tavern",
+    "openstreetmap": "https://www.openstreetmap.org/?mlat=40.822509225043&mlon=-74.219748973846#map=19/40.822509225043/-74.219748973846",
+    "geo_uri": "geo:40.822509225043,-74.219748973846?q=Tierney%27s%20Tavern"
+  },
+  "coordinate_source": {
+    "description": "Exact Google Maps point linked by The Sopranos Location Guide; corroborated by other venue datasets.",
+    "url": "https://www.sopranos-locations.com/locations/bar-near-canada/",
+    "verified_on": "2026-09-01"
+  }
+}
