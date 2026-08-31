@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tierney's Tavern exact location card</title>
+  <desc id="desc">Tierney's Tavern at 138 Valley Road, Montclair, New Jersey, coordinates 40.822509225043, negative 74.219748973846.</desc>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#62ff9d" stroke-opacity=".08" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="signal" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#62ff9d" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#62ff9d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="13" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#070908"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1190" cy="445" r="310" fill="url(#signal)"/>
+  <path d="M1190 260c-102 0-185 83-185 185 0 138 185 312 185 312s185-174 185-312c0-102-83-185-185-185z" fill="#0d5134" stroke="#62ff9d" stroke-width="4" filter="url(#glow)"/>
+  <circle cx="1190" cy="445" r="62" fill="#62ff9d"/>
+  <text x="88" y="98" fill="#62ff9d" font-family="monospace" font-size="27" font-weight="700" letter-spacing="4">TT//1934 · LOCATION SIGNAL</text>
+  <text x="82" y="260" fill="#f0ebdd" font-family="Arial, Helvetica, sans-serif" font-size="105" font-weight="800" letter-spacing="-6">138 VALLEY</text>
+  <text x="82" y="365" fill="#f0ebdd" font-family="Arial, Helvetica, sans-serif" font-size="105" font-weight="800" letter-spacing="-6">ROAD.</text>
+  <text x="88" y="445" fill="#a6aea9" font-family="Arial, Helvetica, sans-serif" font-size="34">Tierney's Tavern · Montclair, New Jersey 07042</text>
+  <text x="88" y="535" fill="#ffb13b" font-family="monospace" font-size="31">40.822509225043, -74.219748973846</text>
+  <line x1="88" y1="594" x2="810" y2="594" stroke="#62ff9d" stroke-opacity=".48"/>
+  <text x="88" y="660" fill="#f0ebdd" font-family="monospace" font-size="27">(862) 596-5986</text>
+  <text x="88" y="710" fill="#a6aea9" font-family="monospace" font-size="23">WHERE FRIENDS MEET · SINCE 1934</text>
+  <text x="88" y="818" fill="#62ff9d" font-family="monospace" font-size="21">STATUS: EXACT POINT VERIFIED 2026-09-01</text>
+</svg>
