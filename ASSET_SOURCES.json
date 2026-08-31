@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/reference/tierneys-exterior-montclair-girl.jpg",
+      "download_url": "https://www.themontclairgirl.com/wp-content/uploads/2022/05/Tierneys-Tavern-montclair.jpeg",
+      "source_page": "https://www.themontclairgirl.com/sopranos-landmarks-north-jersey/",
+      "minimum_bytes": 25000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/reference/tierney-family-northjersey.jpg",
+      "download_url": "https://s.yimg.com/ny/api/res/1.2/L4gF9YY7ojsl2PFCn541dA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https%3A/media.zenfs.com/en/aol_gannett_aggregated_707/0c9fcde4f4c91e404ffeda2755f699d1",
+      "source_page": "https://www.aol.com/tierneys-tavern-one-best-bars-090654255.html",
+      "minimum_bytes": 25000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/reference/buddy-burger-mike-eats-nyc-burgers.jpg",
+      "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/1716838010324-ZNA0KK49R4NZCZPFBTR1/zDSC03336.jpg",
+      "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
+      "minimum_bytes": 25000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/reference/classic-cheeseburger-mike-eats-nyc-burgers.jpg",
+      "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/1716838114328-MNJ2AR33055YZGYYZ9RT/zIMG_4191.jpg",
+      "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
+      "minimum_bytes": 25000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/reference/guinness-mural-mike-eats-nyc-burgers.jpg",
+      "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/9d81ddff-579f-4270-86f3-6d6f7cd64cb2/insideIMG_4218.jpg",
+      "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
+      "minimum_bytes": 25000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/reference/upstairs-performance-bizzboard.jpg",
+      "download_url": "https://tse1.mm.bing.net/th/id/OIP.ylEJWB6c4VrY-g3rnkNQ8AHaFj?r=0&pid=Api",
+      "source_page": "https://www.bizzboard.com/business/tierneys-tavern/",
+      "minimum_bytes": 8000,
+      "allowed_types": ["image/jpeg", "image/jpg", "image/png", "image/webp"]
+    },
+    {
+      "path": "assets/reference/sopranos-location-thumb.jpg",
+      "download_url": "https://www.sopranos-locations.com/images/thumb/1934.jpg",
+      "source_page": "https://www.sopranos-locations.com/locations/bar-near-canada/",
+      "minimum_bytes": 3000,
+      "allowed_types": ["image/jpeg", "image/jpg"]
+    },
+    {
+      "path": "assets/brand/current-tierneys-mark.png",
+      "download_url": "https://static.wixstatic.com/media/4b3cbd_a88c9f5ffab34f7f8eeeac5dadaed539~mv2.png",
+      "source_page": "https://www.tierneystavern1934.com/",
+      "minimum_bytes": 5000,
+      "allowed_types": ["image/png"]
+    }
+  ]
+}
