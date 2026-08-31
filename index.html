@@ -3,503 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#070908">
+  <meta name="theme-color" content="#050806">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="description" content="A futuristic, motion-rich website design dossier for Tierney's Tavern in Montclair, New Jersey, built from real research, imagery, and map data.">
-  <title>Tierney's Tavern // 1934 → ∞ — Future Heritage Design Dossier</title>
+  <meta name="description" content="An independent future-heritage website concept for Tierney's Tavern in Montclair, New Jersey.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tierney's Tavern // Future Heritage Concept">
+  <meta property="og:description" content="Where friends meet — a mobile-first website concept for Montclair's family tavern, founded in 1934.">
+  <meta property="og:image" content="/assets/public/tierneys-social-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Tierney's Tavern future-heritage concept with a stylized Tudor facade">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/public/tierneys-social-card.png">
+  <title>Tierney's Tavern // Where Friends Meet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink:#070908;
-      --ink-2:#0b100d;
-      --glass:rgba(7,9,8,.72);
-      --green:#62ff9d;
-      --green-soft:#0d5134;
-      --amber:#ffb13b;
-      --brass:#b68a4a;
-      --bone:#f0ebdd;
-      --smoke:#9da7a1;
-      --red:#ff4c3e;
-      --line:rgba(240,235,221,.15);
-      --line-green:rgba(98,255,157,.28);
-      --display:"Unbounded",system-ui,sans-serif;
-      --sans:"Space Grotesk",system-ui,sans-serif;
-      --mono:"IBM Plex Mono",ui-monospace,monospace;
-      --max:1240px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;background:var(--ink)}
-    body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);overflow-x:hidden}
-    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:70;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px);mix-blend-mode:soft-light;opacity:.35}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    img{max-width:100%;display:block}
-    ::selection{background:var(--green);color:var(--ink)}
-    .skip{position:fixed;left:1rem;top:-6rem;z-index:100;background:var(--green);color:var(--ink);padding:.8rem 1rem;font-family:var(--mono);font-weight:700}
-    .skip:focus{top:1rem}
-    #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.95}
-    .ambient{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 68% 25%,rgba(13,81,52,.27),transparent 34%),radial-gradient(circle at 20% 80%,rgba(182,138,74,.14),transparent 32%),linear-gradient(180deg,rgba(7,9,8,.08),var(--ink) 78%)}
-    .page{position:relative;z-index:2}
-    .shell{width:min(calc(100% - 2rem),var(--max));margin-inline:auto}
-    .prototype-bar{position:relative;z-index:60;border-bottom:1px solid var(--line-green);background:rgba(7,9,8,.92);backdrop-filter:blur(14px);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
-    .prototype-bar .shell{min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .prototype-bar strong{color:var(--bone);font-weight:500}
-    header{position:sticky;top:0;z-index:55;background:linear-gradient(180deg,rgba(7,9,8,.96),rgba(7,9,8,.72));border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
-    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
-    .mark{display:flex;align-items:center;gap:.8rem;font-family:var(--display);font-weight:800;letter-spacing:-.06em;font-size:clamp(1rem,2.2vw,1.4rem)}
-    .mark-icon{width:42px;height:42px;border:1px solid var(--line-green);display:grid;place-items:center;clip-path:polygon(50% 0,100% 32%,100% 100%,0 100%,0 32%);background:linear-gradient(180deg,rgba(98,255,157,.16),rgba(98,255,157,.02))}
-    .mark-icon span{font-family:var(--mono);font-size:.62rem;color:var(--green);letter-spacing:0}
-    nav{display:flex;align-items:center;gap:1.35rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
-    nav a{position:relative;color:var(--smoke);transition:color .25s ease}
-    nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-.5rem;height:1px;background:var(--green);transition:right .25s ease}
-    nav a:hover,nav a:focus-visible{color:var(--bone)}
-    nav a:hover::after,nav a:focus-visible::after{right:0}
-    .nav-status{display:flex;align-items:center;gap:.5rem;color:var(--green)}
-    .status-dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 18px currentColor;animation:pulse 5s ease-in-out infinite}
-    @keyframes pulse{0%,88%,100%{box-shadow:0 0 0 0 rgba(98,255,157,0)}92%{box-shadow:0 0 0 10px rgba(98,255,157,.12)}}
-    .hero{min-height:calc(100svh - 112px);display:grid;align-items:center;padding:clamp(4rem,8vw,8rem) 0 5rem;position:relative}
-    .hero-grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(300px,.76fr);gap:clamp(2rem,6vw,6rem);align-items:end}
-    .eyebrow,.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:.8rem}
-    .eyebrow::before,.kicker::before{content:"";width:34px;height:1px;background:currentColor}
-    h1{font-family:var(--display);font-size:clamp(3.35rem,10.5vw,9.6rem);line-height:.86;letter-spacing:-.075em;margin:1.45rem 0 1.75rem;max-width:9ch;text-wrap:balance}
-    h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(240,235,221,.54)}
-    .lede{font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.6;color:#c7cec9;max-width:670px}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.2rem}
-    .btn{min-height:50px;padding:.8rem 1.05rem;border:1px solid var(--line);background:rgba(7,9,8,.55);color:var(--bone);display:inline-flex;align-items:center;justify-content:center;gap:.75rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:border-color .25s ease,transform .25s ease,color .25s ease}
-    .btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--green);transform:translateX(-103%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-    .btn:hover,.btn:focus-visible{color:var(--ink);border-color:var(--green);transform:translateY(-2px)}
-    .btn:hover::before,.btn:focus-visible::before{transform:translateX(0)}
-    .btn.primary{background:var(--green);color:var(--ink);border-color:var(--green);font-weight:700}
-    .btn.primary::before{background:var(--bone)}
-    .btn .arrow{transition:transform .25s ease}
-    .btn:hover .arrow{transform:translateX(4px)}
-    .hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;gap:1rem}
-    .hero-meta dt{font-family:var(--mono);font-size:.59rem;letter-spacing:.11em;text-transform:uppercase;color:var(--smoke);margin-bottom:.45rem}
-    .hero-meta dd{margin:0;font-family:var(--mono);font-size:.75rem;color:var(--bone)}
-    .terminal{border:1px solid var(--line-green);background:linear-gradient(180deg,rgba(11,16,13,.8),rgba(7,9,8,.58));box-shadow:0 28px 80px rgba(0,0,0,.32),inset 0 0 70px rgba(98,255,157,.025);backdrop-filter:blur(18px);position:relative;overflow:hidden}
-    .terminal::before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent 10%,rgba(98,255,157,.16),transparent 34%);transform:translateX(-100%);animation:terminal-scan 7s ease-in-out infinite;pointer-events:none}
-    @keyframes terminal-scan{0%,70%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-    .terminal-head{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--smoke)}
-    .terminal-body{padding:1rem}
-    .terminal-photo{aspect-ratio:4/3;position:relative;overflow:hidden;filter:saturate(.8) contrast(1.06)}
-    .terminal-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
-    .terminal:hover .terminal-photo img{transform:scale(1.04)}
-    .terminal-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,9,8,.9)),repeating-linear-gradient(90deg,transparent 0,transparent 37px,rgba(98,255,157,.08) 38px);mix-blend-mode:screen}
-    .terminal-caption{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:2;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;line-height:1.6;text-transform:uppercase}
-    .data-row{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:.72rem 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.68rem}
-    .data-row:last-child{border-bottom:0}
-    .data-label{color:var(--smoke);text-transform:uppercase;letter-spacing:.08em}
-    .data-value{text-align:right;color:var(--bone)}
-    .data-value.live{color:var(--green)}
-    .scan-control{width:100%;margin-top:1rem;cursor:pointer}
-    .progress{position:fixed;left:0;top:0;z-index:90;height:2px;background:var(--green);width:0;box-shadow:0 0 16px rgba(98,255,157,.8)}
-    section{padding:clamp(5rem,10vw,9rem) 0;border-top:1px solid var(--line);position:relative}
-    .section-head{display:grid;grid-template-columns:.65fr 1.35fr;gap:2rem;align-items:start;margin-bottom:clamp(2.2rem,5vw,4.5rem)}
-    .section-index{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--green)}
-    h2{font-family:var(--display);font-size:clamp(2rem,5vw,5rem);line-height:.98;letter-spacing:-.055em;margin:0;text-wrap:balance}
-    .section-copy{grid-column:2;color:#b8c0bb;line-height:1.75;max-width:720px;margin:0;font-size:1.02rem}
-    .event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-    .ticket{min-height:330px;border:1px solid var(--line);padding:1.2rem;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,rgba(13,81,52,.16),rgba(7,9,8,.78) 58%);position:relative;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
-    .ticket::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle,rgba(98,255,157,.13),transparent 45%);transform:translate(-40%,-40%);transition:transform .6s ease}
-    .ticket:hover{transform:translateY(-8px);border-color:var(--line-green)}
-    .ticket:hover::before{transform:translate(10%,10%)}
-    .ticket-top,.ticket-bottom{position:relative;z-index:1}
-    .ticket-code{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--green);text-transform:uppercase}
-    .ticket-date{font-family:var(--display);font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.06em;line-height:.95;margin:1.2rem 0}
-    .ticket h3{font-family:var(--display);font-size:1.25rem;line-height:1.25;margin:0 0 .7rem}
-    .ticket p{color:var(--smoke);line-height:1.6;margin:0}
-    .ticket-bottom{display:flex;justify-content:space-between;align-items:end;gap:1rem;border-top:1px dashed var(--line);padding-top:1rem;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em}
-    .asset-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(88px,auto);gap:1rem}
-    .asset{margin:0;position:relative;overflow:hidden;border:1px solid var(--line);background:#0b0e0c;min-height:260px}
-    .asset:nth-child(1){grid-column:span 7;grid-row:span 4}
-    .asset:nth-child(2){grid-column:span 5;grid-row:span 2}
-    .asset:nth-child(3){grid-column:span 5;grid-row:span 2}
-    .asset:nth-child(4){grid-column:span 6;grid-row:span 3}
-    .asset:nth-child(5){grid-column:span 6;grid-row:span 3}
-    .asset img{width:100%;height:100%;object-fit:cover;filter:saturate(.72) contrast(1.08);transition:filter .5s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-    .asset:hover img{filter:saturate(1) contrast(1.02);transform:scale(1.035)}
-    .asset::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,rgba(7,9,8,.9));pointer-events:none}
-    figcaption{position:absolute;z-index:2;left:1rem;right:1rem;bottom:1rem;display:flex;justify-content:space-between;align-items:end;gap:1rem;font-family:var(--mono);font-size:.61rem;letter-spacing:.06em;line-height:1.5;text-transform:uppercase}
-    figcaption span:last-child{color:var(--green);text-align:right}
-    .system-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-    .system-card{border-top:1px solid var(--green);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);padding:1.35rem;min-height:245px;background:rgba(7,9,8,.5);backdrop-filter:blur(9px)}
-    .system-card .number{font-family:var(--mono);color:var(--green);font-size:.65rem;letter-spacing:.12em}
-    .system-card h3{font-family:var(--display);font-size:1.15rem;line-height:1.25;margin:2.8rem 0 .9rem}
-    .system-card p{margin:0;color:var(--smoke);line-height:1.65;font-size:.9rem}
-    .map-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:1rem;align-items:stretch}
-    .location-card{border:1px solid var(--line-green);background:rgba(7,9,8,.72);padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;min-height:540px}
-    .location-card img{width:100%;border:1px solid var(--line);background:#08100b}
-    .address{margin:2rem 0;font-family:var(--display);font-size:clamp(1.45rem,3vw,2.55rem);line-height:1.15;letter-spacing:-.04em}
-    .coordinates{font-family:var(--mono);font-size:.72rem;color:var(--green);line-height:1.8}
-    .map-frame{position:relative;min-height:540px;border:1px solid var(--line);overflow:hidden;background:#0a0d0b}
-    .map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) invert(.91) contrast(1.15) hue-rotate(85deg) saturate(.6);opacity:.88}
-    .map-frame::after{content:"EXACT POINT // 40.822509225043, -74.219748973846";position:absolute;left:1rem;bottom:1rem;background:rgba(7,9,8,.9);border:1px solid var(--line-green);padding:.7rem .8rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--green);pointer-events:none}
-    .docs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    .doc-link{border:1px solid var(--line);padding:1.5rem;min-height:190px;background:rgba(7,9,8,.56);display:flex;flex-direction:column;justify-content:space-between;transition:border-color .25s ease,transform .25s ease}
-    .doc-link:hover,.doc-link:focus-visible{border-color:var(--green);transform:translateY(-4px)}
-    .doc-link span{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.11em;color:var(--green)}
-    .doc-link strong{font-family:var(--display);font-size:1.25rem;line-height:1.3}
-    .rights{margin-top:2rem;border-left:2px solid var(--amber);padding:1rem 1.2rem;background:rgba(255,177,59,.06);color:#c9c2b2;line-height:1.7;font-size:.88rem}
-    footer{border-top:1px solid var(--line);padding:2rem 0 6rem;background:rgba(7,9,8,.85)}
-    .footer-grid{display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem}
-    .footer-title{font-family:var(--display);font-size:clamp(1.3rem,3vw,2.4rem);letter-spacing:-.05em}
-    .footer-meta{text-align:right;font-family:var(--mono);font-size:.62rem;line-height:1.8;color:var(--smoke);text-transform:uppercase;letter-spacing:.08em}
-    .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-    .reveal.in{opacity:1;transform:none}
-    .mobile-dock{display:none}
-    @media (max-width:980px){
-      nav a:not(.nav-status){display:none}
-      .hero-grid,.map-grid{grid-template-columns:1fr}
-      .hero{padding-top:4rem}
-      .terminal{max-width:620px}
-      .section-head{grid-template-columns:1fr}
-      .section-copy{grid-column:1}
-      .event-grid{grid-template-columns:1fr 1fr}
-      .ticket:last-child{grid-column:1/-1}
-      .system-grid{grid-template-columns:1fr 1fr}
-      .asset:nth-child(n){grid-column:span 6;grid-row:span 3}
-      .asset:nth-child(1){grid-column:1/-1}
-    }
-    @media (max-width:680px){
-      .shell{width:min(calc(100% - 1.25rem),var(--max))}
-      .prototype-bar .shell{min-height:42px;align-items:flex-start;justify-content:center;flex-direction:column;gap:.15rem;padding:.45rem 0}
-      .prototype-bar span:last-child{display:none}
-      header{top:0}
-      .nav{height:64px}
-      nav .nav-status{font-size:0}
-      nav .nav-status::after{content:"SNAPSHOT";font-size:.62rem}
-      h1{font-size:clamp(3rem,18vw,5.9rem)}
-      .hero-meta{grid-template-columns:1fr 1fr}
-      .hero-meta div:last-child{grid-column:1/-1}
-      .event-grid,.system-grid,.docs{grid-template-columns:1fr}
-      .ticket:last-child{grid-column:auto}
-      .asset:nth-child(n){grid-column:1/-1;min-height:330px}
-      .map-frame,.location-card{min-height:440px}
-      .footer-grid{grid-template-columns:1fr}
-      .footer-meta{text-align:left}
-      footer{padding-bottom:7.5rem}
-      .mobile-dock{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:.6rem;right:.6rem;bottom:max(.6rem,env(safe-area-inset-bottom));z-index:80;background:rgba(7,9,8,.93);backdrop-filter:blur(18px);border:1px solid var(--line-green)}
-      .mobile-dock a{min-height:54px;display:grid;place-items:center;font-family:var(--mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.06em;border-right:1px solid var(--line)}
-      .mobile-dock a:last-child{border-right:0}
-    }
-    @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-      #scene{display:none}
-      .reveal{opacity:1;transform:none}
-    }
+    :root{--ink:#050806;--ink-2:#09100c;--panel:rgba(10,17,13,.78);--green:#62ff9d;--green-deep:#0d5134;--amber:#ffb13b;--bone:#f2eddf;--smoke:#a9b3ad;--line:rgba(242,237,223,.14);--line-green:rgba(98,255,157,.30);--display:"Unbounded",system-ui,sans-serif;--sans:"Space Grotesk",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--max:1180px;color-scheme:dark}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink);scroll-padding-top:90px}body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);overflow-x:hidden}body::before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;background:radial-gradient(circle at 72% 12%,rgba(13,81,52,.28),transparent 34%),radial-gradient(circle at 10% 80%,rgba(255,177,59,.08),transparent 28%),linear-gradient(180deg,#07100b 0,var(--ink) 42%,#030504 100%)}body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.18;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 4px);mix-blend-mode:soft-light}a{color:inherit;text-decoration:none}button{font:inherit}img,svg{display:block;max-width:100%}::selection{background:var(--green);color:var(--ink)}:focus-visible{outline:2px solid var(--green);outline-offset:4px}.skip{position:fixed;left:1rem;top:-6rem;z-index:150;background:var(--green);color:var(--ink);padding:.85rem 1rem;font:600 .72rem var(--mono)}.skip:focus{top:1rem}.shell{width:min(calc(100% - 2rem),var(--max));margin-inline:auto}.concept-bar{position:relative;z-index:80;border-bottom:1px solid var(--line-green);background:rgba(5,8,6,.94);font:500 .62rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--green)}.concept-bar .shell{min-height:34px;display:flex;align-items:center;justify-content:center;text-align:center}header{position:sticky;top:0;z-index:70;background:rgba(5,8,6,.78);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.mark{display:flex;align-items:center;gap:.75rem;font:800 clamp(.95rem,2vw,1.25rem) var(--display);letter-spacing:-.06em;white-space:nowrap}.mark-symbol{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line-green);background:linear-gradient(180deg,rgba(98,255,157,.15),transparent);clip-path:polygon(50% 0,100% 32%,100% 100%,0 100%,0 32%)}.mark-symbol span{font:600 .58rem var(--mono);letter-spacing:0;color:var(--green)}.desktop-nav{display:flex;align-items:center;gap:1.25rem;font:500 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}.desktop-nav a{transition:color .2s ease}.desktop-nav a:hover{color:var(--bone)}.live-state{display:flex;align-items:center;gap:.55rem;color:var(--green);white-space:nowrap}.live-state .dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor;animation:pulse 5s ease-in-out infinite}@keyframes pulse{0%,86%,100%{box-shadow:0 0 0 0 rgba(98,255,157,0)}92%{box-shadow:0 0 0 10px rgba(98,255,157,.1)}}
+    .hero{min-height:calc(100svh - 106px);display:grid;align-items:center;padding:clamp(2.6rem,7vw,6rem) 0 4rem}.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr);gap:clamp(2rem,6vw,5.5rem);align-items:center}.eyebrow,.section-label{font:500 .67rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:.75rem}.eyebrow::before,.section-label::before{content:"";width:32px;height:1px;background:currentColor;flex:0 0 auto}h1,h2,h3{font-family:var(--display)}h1{font-size:clamp(3.2rem,9.8vw,8.8rem);line-height:.86;letter-spacing:-.075em;margin:1.4rem 0 1.6rem;max-width:8ch;text-wrap:balance}h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(242,237,223,.58)}.lede{font-size:clamp(1.05rem,1.8vw,1.34rem);line-height:1.62;color:#c8d0cb;max-width:620px;margin:0}.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}.btn{min-height:50px;padding:.82rem 1.08rem;border:1px solid var(--line);background:rgba(5,8,6,.55);color:var(--bone);display:inline-flex;align-items:center;justify-content:center;gap:.72rem;font:600 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:transform .2s ease,border-color .2s ease,color .2s ease}.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--green);transform:translateX(-102%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}.btn:hover{color:var(--ink);border-color:var(--green);transform:translateY(-2px)}.btn:hover::before{transform:translateX(0)}.btn.primary{background:var(--green);color:var(--ink);border-color:var(--green)}.btn.primary::before{background:var(--bone)}.hero-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:2.2rem 0 0;padding:0;list-style:none}.hero-facts li{border-top:1px solid var(--line);padding-top:.8rem;color:var(--smoke);font-size:.78rem;line-height:1.45}.hero-facts strong{display:block;color:var(--bone);font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.25rem}
+    .scene-card{position:relative;min-height:clamp(390px,56vw,620px);border:1px solid var(--line-green);background:linear-gradient(160deg,rgba(13,81,52,.22),rgba(5,8,6,.76) 52%,rgba(255,177,59,.06));overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.36),inset 0 0 80px rgba(98,255,157,.025)}.scene-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 58%,rgba(5,8,6,.92)),repeating-linear-gradient(90deg,transparent 0,transparent 47px,rgba(98,255,157,.05) 48px)}.scene-head{position:absolute;z-index:4;left:1rem;right:1rem;top:1rem;display:flex;justify-content:space-between;gap:1rem;color:var(--smoke);font:500 .59rem var(--mono);letter-spacing:.1em;text-transform:uppercase}#facade-scene{position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;transition:opacity .5s ease}.scene-card.ready #facade-scene{opacity:1}.facade-fallback{position:absolute;inset:8% 5% 13%;z-index:0;transition:opacity .4s ease}.scene-card.ready .facade-fallback{opacity:0}.scene-copy{position:absolute;z-index:4;left:1rem;right:1rem;bottom:1rem;display:grid;grid-template-columns:1fr auto;align-items:end;gap:1rem}.scene-copy small{display:block;font:500 .61rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.45rem}.scene-copy strong{font-size:clamp(1rem,2.2vw,1.35rem);line-height:1.25}.scene-toggle{min-height:42px;padding:.65rem .8rem;border:1px solid var(--line-green);background:rgba(5,8,6,.72);color:var(--green);font:600 .62rem var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.status-rail{border-block:1px solid var(--line);background:rgba(9,16,12,.56)}.status-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr)}.status-cell{padding:1.1rem;border-right:1px solid var(--line);min-width:0}.status-cell:last-child{border-right:0}.status-cell span{display:block;font:500 .58rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:.42rem}.status-cell strong{font:600 clamp(.75rem,1.4vw,.9rem) var(--mono);color:var(--bone)}.status-cell strong.open{color:var(--green)}
+    section{position:relative;padding:clamp(5rem,10vw,9rem) 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.68fr 1.32fr;gap:2rem;align-items:start;margin-bottom:clamp(2.5rem,5vw,4.5rem)}.section-head h2{font-size:clamp(2.25rem,5.4vw,5.4rem);line-height:.98;letter-spacing:-.058em;margin:0;text-wrap:balance}.section-copy{grid-column:2;margin:0;color:#bac3bd;line-height:1.75;max-width:720px;font-size:1.02rem}.food-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(1.25rem,4vw,3rem);align-items:stretch}.burger-stage{min-height:500px;border:1px solid var(--line-green);background:radial-gradient(circle at 50% 54%,rgba(255,177,59,.16),transparent 33%),linear-gradient(160deg,rgba(13,81,52,.15),rgba(5,8,6,.8));display:grid;place-items:center;position:relative;overflow:hidden}.burger-stage::before{content:"SCAN // BUDDY BURGER";position:absolute;left:1rem;top:1rem;color:var(--green);font:500 .6rem var(--mono);letter-spacing:.12em}.burger{width:min(78%,430px);filter:drop-shadow(0 28px 36px rgba(0,0,0,.42));transform:translateY(6px)}.burger .layer{transform-origin:center;transition:transform .7s cubic-bezier(.2,.8,.2,1)}.burger-stage.in .top{transform:translateY(-24px)}.burger-stage.in .onions{transform:translateY(-10px)}.burger-stage.in .cheese{transform:translateY(7px)}.burger-stage.in .patty{transform:translateY(20px)}.menu-panel{border:1px solid var(--line);background:var(--panel);padding:clamp(1.2rem,3vw,2rem);display:flex;flex-direction:column}.menu-panel h3{font-size:clamp(1.6rem,3vw,2.6rem);letter-spacing:-.045em;margin:.2rem 0 .7rem}.menu-panel>p{color:var(--smoke);line-height:1.65;margin:0 0 1.3rem}.menu-list{display:grid;grid-template-columns:1fr 1fr;gap:0 1.25rem;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}.menu-list li{padding:.9rem 0;border-bottom:1px solid var(--line);font:500 .75rem var(--mono);letter-spacing:.04em}.notice{margin-top:auto;padding:1rem;border:1px solid rgba(255,177,59,.34);background:rgba(255,177,59,.06);font-size:.82rem;line-height:1.6;color:#d5c7a9}.notice strong{color:var(--amber)}
+    .upstairs-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:clamp(1.25rem,4vw,3rem)}.room{border:1px solid var(--line-green);min-height:520px;position:relative;overflow:hidden;background:linear-gradient(155deg,rgba(13,81,52,.18),rgba(5,8,6,.82));padding:1rem}.room-toolbar{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:.5rem}.mode{border:1px solid var(--line);background:rgba(5,8,6,.68);color:var(--smoke);padding:.62rem .75rem;font:600 .6rem var(--mono);letter-spacing:.07em;text-transform:uppercase;cursor:pointer}.mode[aria-pressed="true"]{color:var(--ink);background:var(--green);border-color:var(--green)}.room-plan{position:absolute;inset:78px 18px 58px;transform:perspective(900px) rotateX(56deg) rotateZ(-4deg);transform-style:preserve-3d;border:1px solid rgba(98,255,157,.24);background:linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),rgba(5,8,6,.72);background-size:32px 32px;box-shadow:0 40px 70px rgba(0,0,0,.36)}.room-plan::before{content:"BAR";position:absolute;right:4%;top:5%;width:18%;height:88%;display:grid;place-items:center;border:1px solid rgba(255,177,59,.35);background:rgba(255,177,59,.08);color:var(--amber);font:600 .65rem var(--mono)}.stage-block{position:absolute;left:6%;right:28%;top:6%;height:18%;border:1px solid var(--line-green);background:rgba(98,255,157,.08);display:grid;place-items:center;color:var(--green);font:600 .64rem var(--mono)}.markers{position:absolute;left:6%;right:28%;top:30%;bottom:7%;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:4%}.marker{border:1px solid rgba(242,237,223,.24);background:rgba(242,237,223,.08);border-radius:50%;transition:transform .45s ease,border-radius .45s ease,background .45s ease}.room[data-mode="music"] .marker{border-radius:50%;transform:scale(.46);background:rgba(98,255,157,.28)}.room[data-mode="seated"] .markers{grid-template-columns:repeat(4,1fr);gap:8% 6%}.room[data-mode="seated"] .marker{border-radius:10px;transform:scale(.86);background:rgba(242,237,223,.12)}.room[data-mode="expanded"] .markers{grid-template-columns:repeat(7,1fr);gap:3%}.room[data-mode="expanded"] .marker{border-radius:4px;transform:scale(.72);background:rgba(255,177,59,.14)}.room-caption{position:absolute;z-index:3;left:1rem;right:1rem;bottom:1rem;display:flex;justify-content:space-between;gap:1rem;align-items:end}.room-caption span{font:500 .61rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}.room-caption strong{font:600 .9rem var(--mono);color:var(--green);text-align:right}.booking{border:1px solid var(--line);background:var(--panel);padding:clamp(1.2rem,3vw,2rem)}.booking h3{font-size:clamp(1.65rem,3vw,2.65rem);letter-spacing:-.05em;margin:.2rem 0 1rem}.booking-facts{display:grid;gap:0;margin:0 0 1.4rem}.booking-facts div{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:.86rem 0;border-bottom:1px solid var(--line)}.booking-facts dt{color:var(--smoke);font-size:.88rem}.booking-facts dd{margin:0;font:600 .78rem var(--mono);text-align:right}.booking p{color:var(--smoke);line-height:1.65}
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.era{position:relative;border-top:1px solid var(--line-green);padding:1.1rem 0 0}.era::before{content:"";position:absolute;left:0;top:-4px;width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 16px rgba(98,255,157,.6)}.era time{font:600 .7rem var(--mono);letter-spacing:.1em;color:var(--green)}.era h3{font-size:clamp(1.35rem,2.5vw,2rem);letter-spacing:-.04em;margin:.8rem 0 .65rem}.era p{color:var(--smoke);line-height:1.65;margin:0}.visit-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(1rem,4vw,3rem)}.visit-card{border:1px solid var(--line);background:var(--panel);padding:clamp(1.2rem,3vw,2rem);display:flex;flex-direction:column}.visit-card h3{font-size:clamp(1.6rem,3vw,2.7rem);letter-spacing:-.05em;margin:.2rem 0 .8rem}.address{font:600 clamp(1rem,2vw,1.24rem) var(--mono);line-height:1.55;color:var(--bone)}.visit-facts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.5rem 0}.visit-fact{border-top:1px solid var(--line);padding-top:.7rem;color:var(--smoke);font-size:.8rem;line-height:1.5}.visit-fact strong{display:block;color:var(--bone);font:600 .68rem var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.25rem}.map-card{border:1px solid var(--line-green);min-height:520px;position:relative;overflow:hidden;background:radial-gradient(circle at 52% 45%,rgba(13,81,52,.32),transparent 34%),#07100b}.map-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.65) contrast(1.03)}.map-placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:2rem;text-align:center}.map-orbit{width:min(300px,70%);aspect-ratio:1;border:1px solid var(--line-green);border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle,rgba(98,255,157,.12),transparent 52%)}.map-orbit::before,.map-orbit::after{content:"";position:absolute;border:1px solid rgba(98,255,157,.16);border-radius:50%;inset:14%}.map-orbit::after{inset:29%}.pin{width:28px;height:36px;background:var(--green);clip-path:polygon(50% 100%,0 45%,0 20%,18% 0,82% 0,100% 20%,100% 45%);filter:drop-shadow(0 0 18px rgba(98,255,157,.55))}.map-copy{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:2;display:flex;justify-content:space-between;align-items:end;gap:1rem}.map-copy span{font:500 .61rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}.map-load{min-height:44px;padding:.7rem .85rem;border:1px solid var(--line-green);background:rgba(5,8,6,.82);color:var(--green);font:600 .62rem var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.final-cta{text-align:center;max-width:900px;margin-inline:auto}.final-cta h2{font-size:clamp(2.5rem,7vw,6.5rem);letter-spacing:-.07em;line-height:.92;margin:0 0 1rem}.final-cta p{color:var(--smoke);line-height:1.65;font-size:1.05rem;max-width:620px;margin:0 auto}.final-cta .actions{justify-content:center}footer{border-top:1px solid var(--line);padding:2.2rem 0 6rem;color:var(--smoke)}.footer-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem}.footer-title{font:700 1rem var(--display);color:var(--bone);letter-spacing:-.04em}.footer-grid p{margin:.45rem 0 0;line-height:1.6;font-size:.84rem}.footer-meta{text-align:right;font:500 .61rem var(--mono);letter-spacing:.07em;line-height:1.7;text-transform:uppercase}.mobile-dock{display:none}.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.reveal.in{opacity:1;transform:none}
+    @media (max-width:900px){.desktop-nav{display:none}.hero{min-height:auto;padding-top:3.4rem}.hero-grid,.food-grid,.upstairs-grid,.visit-grid{grid-template-columns:1fr}.scene-card{min-height:500px}.section-head{grid-template-columns:1fr;gap:1rem}.section-copy{grid-column:auto}.status-grid{grid-template-columns:1fr 1fr}.status-cell:nth-child(2){border-right:0}.status-cell:nth-child(-n+2){border-bottom:1px solid var(--line)}.timeline{grid-template-columns:1fr;gap:2rem}.map-card{min-height:480px}}
+    @media (max-width:620px){body{padding-bottom:70px}.shell{width:min(calc(100% - 1.25rem),var(--max))}.concept-bar .shell{min-height:38px;padding:.35rem 0;line-height:1.4}.nav{min-height:64px}.mark-symbol{width:36px;height:36px}.live-state{font-size:.58rem}.live-state .state-detail{display:none}.hero{padding:2.7rem 0 3.5rem}h1{font-size:clamp(3.1rem,18vw,5.5rem)}.lede{font-size:1.02rem}.actions{display:grid;grid-template-columns:1fr 1fr}.actions .btn:last-child:nth-child(3){grid-column:1/-1}.btn{width:100%;padding-inline:.7rem;font-size:.64rem}.hero-facts{grid-template-columns:1fr 1fr}.hero-facts li:last-child{grid-column:1/-1}.scene-card{min-height:430px}.scene-copy{grid-template-columns:1fr;align-items:start}.scene-toggle{justify-self:start}.status-grid{grid-template-columns:1fr 1fr}.status-cell{padding:.9rem .7rem}section{padding:4.8rem 0}.section-head h2{font-size:clamp(2.15rem,13vw,3.8rem)}.burger-stage{min-height:390px}.menu-list{grid-template-columns:1fr}.room{min-height:430px}.room-plan{inset:88px 12px 72px}.room-caption{display:block}.room-caption strong{display:block;text-align:left;margin-top:.35rem}.visit-facts{grid-template-columns:1fr 1fr}.map-card{min-height:430px}.footer-grid{display:block}.footer-meta{text-align:left;margin-top:1.4rem}.mobile-dock{position:fixed;z-index:90;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);padding:0 max(.35rem,env(safe-area-inset-right)) max(.35rem,env(safe-area-inset-bottom)) max(.35rem,env(safe-area-inset-left));background:rgba(5,8,6,.94);border-top:1px solid var(--line-green);backdrop-filter:blur(18px)}.mobile-dock a{min-height:58px;display:grid;place-items:center;font:600 .58rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--smoke)}.mobile-dock a:last-child{color:var(--green)}}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}#facade-scene{display:none}.facade-fallback{opacity:1!important}.burger-stage.in .layer{transform:none}}
   </style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <div class="progress" aria-hidden="true"></div>
-  <canvas id="scene" aria-hidden="true"></canvas>
-  <div class="ambient" aria-hidden="true"></div>
-  <div class="page">
-    <div class="prototype-bar">
-      <div class="shell">
-        <strong>Independent design prototype // not the official Tierney's website</strong>
-        <span>Research snapshot: 01 September 2026</span>
-      </div>
-    </div>
-    <header>
-      <div class="shell nav">
-        <a class="mark" href="#top" aria-label="Tierney's future heritage dossier home">
-          <span class="mark-icon"><span>TT</span></span>
-          <span>TT//1934</span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#signal">Signals</a>
-          <a href="#assets">Assets</a>
-          <a href="#system">System</a>
-          <a href="#location">Location</a>
-          <a class="nav-status" href="#sources"><span class="status-dot"></span> Research loaded</a>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main">
-      <section class="hero" id="top">
-        <div class="shell hero-grid">
-          <div class="hero-copy reveal">
-            <div class="eyebrow">Montclair, New Jersey // transmitting since 1934</div>
-            <h1>WHERE <span>FRIENDS</span> MEET.</h1>
-            <p class="lede">A future-heritage website direction for a five-generation neighborhood tavern: real history, live operational signals, spatial storytelling, and an unmistakable Valley Road identity.</p>
-            <div class="hero-actions">
-              <a class="btn primary" href="#signal">Enter the signal <span class="arrow">→</span></a>
-              <a class="btn" href="location/tierneys-map.html">Open exact map <span class="arrow">↗</span></a>
-              <a class="btn" href="WEBSITE_DESIGN_PLAN.md">Read full Markdown <span class="arrow">↓</span></a>
-            </div>
-            <dl class="hero-meta">
-              <div><dt>Venue point</dt><dd>40.822509, -74.219749</dd></div>
-              <div><dt>Public address</dt><dd>138 Valley Road</dd></div>
-              <div><dt>Project mode</dt><dd>Future heritage</dd></div>
-            </dl>
-          </div>
-
-          <aside class="terminal reveal" aria-label="Venue research terminal">
-            <div class="terminal-head"><span>Structure scan // TT-1934</span><span id="clock">--:--:-- ET</span></div>
-            <div class="terminal-body">
-              <div class="terminal-photo">
-                <img src="assets/reference/tierneys-exterior-montclair-girl.jpg" alt="Tierney's Tavern Tudor-style exterior on Valley Road in Montclair">
-                <div class="terminal-caption">Recognizable Tudor façade<br>Architectural scan reference</div>
-              </div>
-              <div class="data-row"><span class="data-label">Signal origin</span><span class="data-value">1934</span></div>
-              <div class="data-row"><span class="data-label">Format</span><span class="data-value">Bar + grill / upstairs room</span></div>
-              <div class="data-row"><span class="data-label">Contact</span><a class="data-value live" href="tel:+18625965986">+1 862 596 5986</a></div>
-              <div class="data-row"><span class="data-label">Scene state</span><span class="data-value live" id="scene-state">Initializing</span></div>
-              <button class="btn scan-control" type="button" id="scan-button">Explode architectural layers <span class="arrow">↗</span></button>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section id="signal">
-        <div class="shell">
-          <div class="section-head reveal">
-            <div><div class="section-index">01 // LIVE SIGNAL MODEL</div></div>
-            <h2>TONIGHT FIRST.<br>CALENDAR SECOND.</h2>
-            <p class="section-copy">The customer journey begins with what is happening now, what happens next, and how to get there. These cards use publicly listed events captured in the September 1, 2026 research snapshot—not invented demonstration copy.</p>
-          </div>
-          <div class="event-grid">
-            <article class="ticket reveal">
-              <div class="ticket-top"><div class="ticket-code">Signal 0903 // Comedy</div><div class="ticket-date">SEP<br>03</div><h3>Lev Fer — Collective Comedy</h3><p>Upstairs at Tierney's Tavern. Public listing captured for the design prototype.</p></div>
-              <div class="ticket-bottom"><span>8:30–10:00 PM</span><span>Level 02</span></div>
-            </article>
-            <article class="ticket reveal">
-              <div class="ticket-top"><div class="ticket-code">Signal 0919 // Live music</div><div class="ticket-date">SEP<br>19</div><h3>The BARD Band</h3><p>A real live-music example for the ticket transition and upstairs-lighting state.</p></div>
-              <div class="ticket-bottom"><span>8:00 PM</span><span>Level 02</span></div>
-            </article>
-            <article class="ticket reveal">
-              <div class="ticket-top"><div class="ticket-code">Signal 1011 // Future rail</div><div class="ticket-date">OCT<br>11</div><h3>The Challenged</h3><p>Publicly listed as an upcoming show when the research package was assembled.</p></div>
-              <div class="ticket-bottom"><span>Time via venue</span><span>Archive ready</span></div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="assets">
-        <div class="shell">
-          <div class="section-head reveal">
-            <div><div class="section-index">02 // REAL ASSET BOARD</div></div>
-            <h2>NO STOCK PUB.<br>NO FAKE NOSTALGIA.</h2>
-            <p class="section-copy">The visual direction starts with the actual building, family, food, and upstairs room. Every image below is retained as an attributed research reference; the rights manifest must be cleared before commercial publication.</p>
-          </div>
-          <div class="asset-grid">
-            <figure class="asset reveal"><img loading="lazy" src="assets/reference/tierneys-exterior-montclair-girl.jpg" alt="Tierney's Tavern exterior"><figcaption><span>Valley Road exterior</span><span>The Montclair Girl</span></figcaption></figure>
-            <figure class="asset reveal"><img loading="lazy" src="assets/reference/tierney-family-northjersey.jpg" alt="Members of the Tierney family behind the bar"><figcaption><span>Family behind the bar</span><span>NorthJersey / Gannett</span></figcaption></figure>
-            <figure class="asset reveal"><img loading="lazy" src="assets/reference/buddy-burger-mike-eats-nyc-burgers.jpg" alt="Tierney's Buddy Burger"><figcaption><span>Buddy Burger</span><span>Mike Eats NYC Burgers</span></figcaption></figure>
-            <figure class="asset reveal"><img loading="lazy" src="assets/reference/upstairs-performance-bizzboard.jpg" alt="Performance in Tierney's upstairs room"><figcaption><span>Upstairs performance</span><span>BiZZBoard reference</span></figcaption></figure>
-            <figure class="asset reveal"><img loading="lazy" src="assets/reference/guinness-mural-mike-eats-nyc-burgers.jpg" alt="Tierney's Guinness mural and exterior stairs"><figcaption><span>Mural + upstairs access</span><span>Mike Eats NYC Burgers</span></figcaption></figure>
-          </div>
-        </div>
-      </section>
-
-      <section id="system">
-        <div class="shell">
-          <div class="section-head reveal">
-            <div><div class="section-index">03 // MOTION HIERARCHY</div></div>
-            <h2>THE BUILDING<br>IS THE INTERFACE.</h2>
-            <p class="section-copy">Three.js carries the spatial storytelling; accessible HTML carries the meaning. The procedural façade running behind this page is an architectural study—not a generic cube, a fake venue model, or a blocking loading screen.</p>
-          </div>
-          <div class="system-grid">
-            <article class="system-card reveal"><div class="number">L1 // SPATIAL</div><h3>Three.js landmark scan</h3><p>Wireframe-to-material reveal, separated floors, live upstairs state, restrained camera drift, and a still-image fallback.</p></article>
-            <article class="system-card reveal"><div class="number">L2 // NARRATIVE</div><h3>Scroll choreography</h3><p>Story chapters sequence the exterior, event signal, family history, food, upstairs room, and exact location.</p></article>
-            <article class="system-card reveal"><div class="number">L3 // STATE</div><h3>View transitions</h3><p>Event tickets, menu filters, and venue-state changes move with continuity while remaining usable without JavaScript.</p></article>
-            <article class="system-card reveal"><div class="number">L4 // MICRO</div><h3>CSS + SVG signals</h3><p>Roofline underlines, scanner reveals, data ticks, map routes, status rings, and reduced-motion equivalents.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section id="location">
-        <div class="shell">
-          <div class="section-head reveal">
-            <div><div class="section-index">04 // CANONICAL LOCATION</div></div>
-            <h2>VISIT THE<br>ORIGINAL.</h2>
-            <p class="section-copy">The map uses the original venue point captured in the research package. The public navigation address is 138 Valley Road; the official site also describes the property as 134–138 Valley Road.</p>
-          </div>
-          <div class="map-grid">
-            <article class="location-card reveal">
-              <img src="assets/location/tierneys-location-card.svg" alt="Tierney's Tavern location card with exact coordinates">
-              <div>
-                <div class="address">Tierney's Tavern<br>138 Valley Road<br>Montclair, NJ 07042</div>
-                <div class="coordinates">LAT 40.822509225043<br>LON -74.219748973846<br>TEL +1 862 596 5986</div>
-                <div class="hero-actions">
-                  <a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=40.822509225043%2C-74.219748973846" target="_blank" rel="noopener">Google Maps <span class="arrow">↗</span></a>
-                  <a class="btn" href="https://maps.apple.com/?ll=40.822509225043%2C-74.219748973846&amp;q=Tierney%27s%20Tavern" target="_blank" rel="noopener">Apple Maps <span class="arrow">↗</span></a>
-                </div>
-              </div>
-            </article>
-            <div class="map-frame reveal">
-              <iframe title="Map showing Tierney's Tavern at 138 Valley Road, Montclair, New Jersey" src="https://www.google.com/maps?q=40.822509225043,-74.219748973846&amp;z=18&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="sources">
-        <div class="shell">
-          <div class="section-head reveal">
-            <div><div class="section-index">05 // SOURCE OF TRUTH</div></div>
-            <h2>RESEARCH<br>BEFORE RENDER.</h2>
-            <p class="section-copy">The complete creative direction, image provenance, usage constraints, location data, and production photography checklist remain available as first-class project files.</p>
-          </div>
-          <div class="docs">
-            <a class="doc-link reveal" href="WEBSITE_DESIGN_PLAN.md"><span>31 KB // Markdown specification</span><strong>Open the complete website design and Three.js production plan →</strong></a>
-            <a class="doc-link reveal" href="ASSET_MANIFEST.md"><span>Rights + provenance manifest</span><strong>Review every image source and commercial-use requirement →</strong></a>
-            <a class="doc-link reveal" href="location/tierneys-tavern.json"><span>Machine-readable venue data</span><strong>Open canonical address, coordinates, phone, timezone, and map URLs →</strong></a>
-            <a class="doc-link reveal" href="location/tierneys-tavern.geojson"><span>GeoJSON // Point feature</span><strong>Open the standards-compatible Tierney's map point →</strong></a>
-          </div>
-          <p class="rights reveal"><strong>Publication status:</strong> this deployment is an independent design dossier and technical prototype. Third-party photographs are displayed as attributed research references. Storage or preview deployment does not grant commercial publication rights; clear the permissions recorded in the asset manifest before using them in an official public website.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="shell footer-grid">
-        <div><div class="footer-title">TIERNEY'S // 1934 → ∞</div><p>Old soul. Live signal. No expiration date.</p></div>
-        <div class="footer-meta">Design dossier // 01 Sep 2026<br>Prithiraj/tierneys_tavern<br>Noindex preview deployment</div>
-      </div>
-    </footer>
-  </div>
-
-  <nav class="mobile-dock" aria-label="Mobile actions">
-    <a href="#signal">Signals</a><a href="#assets">Assets</a><a href="#location">Map</a><a href="tel:+18625965986">Call</a>
-  </nav>
-
+  <div class="concept-bar"><div class="shell">Independent website concept prepared for Tierney's Tavern · not the official venue website</div></div>
+  <header><div class="shell nav"><a class="mark" href="#top" aria-label="Tierney's Tavern concept home"><span class="mark-symbol"><span>TT<br>1934</span></span><span>TIERNEY'S</span></a><nav class="desktop-nav" aria-label="Primary navigation"><a href="#food">Food</a><a href="#upstairs">Upstairs</a><a href="#story">Story</a><a href="#visit">Visit</a><a href="https://www.tierneystavern1934.com/calendar" target="_blank" rel="noopener">Events ↗</a></nav><div class="live-state" aria-live="polite"><span class="dot"></span><span id="open-label">Checking hours</span><span class="state-detail">· Montclair, NJ</span></div></div></header>
+  <main id="main">
+    <section class="hero" id="top"><div class="shell hero-grid"><div class="reveal"><div class="eyebrow">Montclair, New Jersey · family owned since 1934</div><h1>WHERE <span>FRIENDS</span> MEET.</h1><p class="lede">Big burgers downstairs. Music, comedy and celebrations upstairs. One neighborhood tavern carried forward by five generations of the Tierney family.</p><div class="actions"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=Tierney%27s%20Tavern%2C%20138%20Valley%20Road%2C%20Montclair%2C%20NJ%2007042" target="_blank" rel="noopener">Get directions <span>↗</span></a><a class="btn" href="tel:+18625965986">Call the tavern <span>→</span></a><a class="btn" href="https://www.tierneystavern1934.com/calendar" target="_blank" rel="noopener">See current events <span>↗</span></a></div><ul class="hero-facts" aria-label="Venue highlights"><li><strong>Five generations</strong>Family roots at the property since the 1890s</li><li><strong>Ten screens</strong>Sports throughout the main bar</li><li><strong>Parking on site</strong>A large customer lot at the tavern</li></ul></div>
+      <div class="scene-card reveal" id="scene-card"><div class="scene-head"><span>Valley Road landmark scan</span><span id="scene-readout">Structural view</span></div><svg class="facade-fallback" viewBox="0 0 800 650" role="img" aria-label="Stylized architectural illustration of Tierney's Tavern"><defs><linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cfc9b7"/><stop offset="1" stop-color="#8f9185"/></linearGradient><linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffca72"/><stop offset="1" stop-color="#6f491c"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g transform="translate(90 92)"><path d="M80 170 L310 0 L540 170 V470 H80Z" fill="url(#wall)" stroke="#62ff9d" stroke-opacity=".34" stroke-width="2"/><rect x="55" y="390" width="510" height="95" fill="#232820"/><path d="M64 174 L310 -18 L556 174" fill="none" stroke="#11170f" stroke-width="30" stroke-linejoin="round"/><path d="M116 173 L310 28 L504 173" fill="none" stroke="#20271f" stroke-width="18"/><g stroke="#20271f" stroke-width="18"><path d="M310 15V382"/><path d="M83 173H537"/><path d="M117 265H503"/><path d="M158 173L310 300L462 173"/></g><g fill="url(#glass)" stroke="#62ff9d" stroke-opacity=".22" stroke-width="3" filter="url(#glow)"><rect x="146" y="303" width="103" height="78"/><rect x="371" y="303" width="103" height="78"/><rect x="255" y="184" width="110" height="73"/></g><rect x="270" y="392" width="80" height="93" fill="#090d0a" stroke="#62ff9d" stroke-opacity=".28"/><rect x="155" y="403" width="100" height="42" fill="#0d5134" stroke="#62ff9d" stroke-opacity=".4"/><rect x="365" y="403" width="100" height="42" fill="#0d5134" stroke="#62ff9d" stroke-opacity=".4"/><rect x="180" y="120" width="260" height="52" rx="4" fill="#070908" stroke="#ffb13b" stroke-opacity=".7"/><text x="310" y="153" text-anchor="middle" fill="#f2eddf" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="3">TIERNEY'S TAVERN</text><path d="M15 485H605" stroke="#62ff9d" stroke-opacity=".32"/><path d="M310 -44V530" stroke="#62ff9d" stroke-opacity=".16" stroke-dasharray="7 12"/></g></svg><canvas id="facade-scene" aria-hidden="true"></canvas><div class="scene-copy"><div><small>TIERNEY'S // 1934 → ∞</small><strong>A historic tavern, rendered as a living neighborhood signal.</strong></div><button class="scene-toggle" id="scene-toggle" type="button" aria-pressed="false">Explode view</button></div></div></div></section>
+    <div class="status-rail" aria-label="Published venue information"><div class="shell status-grid"><div class="status-cell"><span>Current status</span><strong id="status-text" class="open">Calculating from published hours</strong></div><div class="status-cell"><span>Bar</span><strong id="bar-hours">Mon–Sat 11 AM–1 AM</strong></div><div class="status-cell"><span>Kitchen</span><strong id="kitchen-hours">Mon–Sat 11 AM–11 PM</strong></div><div class="status-cell"><span>Seating</span><strong>First come, first served</strong></div></div></div>
+    <section id="food"><div class="shell"><div class="section-head reveal"><div class="section-label">01 · The grill</div><h2>SMALL KITCHEN.<br>BIG BURGERS.</h2><p class="section-copy">Tierney's keeps the food direct: burgers, grill classics, sandwiches and bar sides. The famous Buddy Burger is the order people talk about—ask the bartender or server for it.</p></div><div class="food-grid"><div class="burger-stage reveal" id="burger-stage" aria-label="Animated illustration of a tavern burger"><svg class="burger" viewBox="0 0 560 460" role="img" aria-label="Stylized stacked burger illustration"><defs><linearGradient id="bunTop" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffc768"/><stop offset="1" stop-color="#b76a24"/></linearGradient><linearGradient id="bunBase" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d58b32"/><stop offset="1" stop-color="#7e4218"/></linearGradient><linearGradient id="patty" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6a3421"/><stop offset="1" stop-color="#27130e"/></linearGradient></defs><g class="layer top"><path d="M95 175 C110 70 205 35 280 35 C355 35 450 70 465 175 C470 200 450 215 425 215 H135 C110 215 90 200 95 175Z" fill="url(#bunTop)" stroke="#ffdf9d" stroke-opacity=".45" stroke-width="4"/><g fill="#f3d6a1"><ellipse cx="195" cy="105" rx="6" ry="12" transform="rotate(-25 195 105)"/><ellipse cx="278" cy="78" rx="6" ry="12"/><ellipse cx="365" cy="116" rx="6" ry="12" transform="rotate(25 365 116)"/><ellipse cx="235" cy="140" rx="5" ry="10" transform="rotate(28 235 140)"/><ellipse cx="329" cy="144" rx="5" ry="10" transform="rotate(-28 329 144)"/></g></g><g class="layer onions"><path d="M105 227 C150 191 192 242 240 215 C294 183 341 246 405 211 C432 197 454 218 466 235 C422 264 373 252 330 254 C274 258 220 266 169 252 C141 245 121 241 105 227Z" fill="#b56b39" stroke="#e5a46e" stroke-width="3"/></g><g class="layer cheese"><path d="M91 258 H469 L432 316 L379 298 L329 328 L273 301 L219 330 L159 298 L112 312Z" fill="#ffb13b" stroke="#ffd378" stroke-width="3"/></g><g class="layer patty"><path d="M88 294 C100 272 133 267 165 270 H401 C437 270 465 281 472 305 L464 346 C455 368 423 376 388 374 H165 C126 375 98 364 91 342Z" fill="url(#patty)" stroke="#9a5a3d" stroke-width="4"/></g><g class="layer base"><path d="M112 350 H448 C461 350 471 363 467 377 C457 418 380 432 280 432 C180 432 103 418 93 377 C89 363 99 350 112 350Z" fill="url(#bunBase)" stroke="#e9aa59" stroke-opacity=".5" stroke-width="4"/></g></svg></div><article class="menu-panel reveal"><div class="section-label">From the kitchen</div><h3>Tavern classics, made in a mighty little grill.</h3><p>No oversized menu system—just the items people come to a neighborhood bar for.</p><ul class="menu-list"><li>Buddy Burger</li><li>Burgers & cheeseburgers</li><li>Wings & chicken fingers</li><li>Cheesesteak</li><li>Corned beef & pastrami</li><li>Grilled cheese</li><li>Turkey clubs & BLTs</li><li>Fries & onion rings</li></ul><div class="notice"><strong>Kitchen notice:</strong> Tierney's uses one shared flat top and two shared fryers, cannot guarantee freedom from allergens already present on the menu, and cooks with lard. Tell staff about allergies before ordering.</div><div class="actions"><a class="btn primary" href="https://www.tierneystavern1934.com/kitchen" target="_blank" rel="noopener">View the current menu <span>↗</span></a></div></article></div></div></section>
+    <section id="upstairs"><div class="shell"><div class="section-head reveal"><div class="section-label">02 · Upstairs</div><h2>THE ROOM<br>ABOVE THE BAR.</h2><p class="section-copy">Bands, comedy, birthdays, weddings, plays and private gatherings all share the upstairs room. Select a real operating configuration below to see how the website can make the space easier to understand before someone calls.</p></div><div class="upstairs-grid"><div class="room reveal" id="room" data-mode="music"><div class="room-toolbar" role="group" aria-label="Upstairs room configurations"><button class="mode" type="button" data-mode="music" aria-pressed="true">Live music</button><button class="mode" type="button" data-mode="seated" aria-pressed="false">Current seating</button><button class="mode" type="button" data-mode="expanded" aria-pressed="false">Expanded seating</button></div><div class="room-plan" aria-hidden="true"><div class="stage-block">STAGE / PERFORMANCE</div><div class="markers"><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span><span class="marker"></span></div></div><div class="room-caption"><span>Conceptual room view · final layouts confirmed by Tierney's</span><strong id="room-capacity">Up to 135 standing</strong></div></div><article class="booking reveal"><div class="section-label">Booking information</div><h3>Make the upstairs yours.</h3><dl class="booking-facts"><div><dt>Room rental</dt><dd>$60 / hour</dd></div><div><dt>Minimum</dt><dd>2 hours</dd></div><div><dt>Bartender</dt><dd>Included</dd></div><div><dt>Current seating</dt><dd>Approx. 55–60</dd></div><div><dt>Expanded seating</dt><dd>Up to 100</dd></div><div><dt>Standing room</dt><dd>Up to 135</dd></div></dl><p>There is no second kitchen upstairs, so the tavern recommends outside catering. Gratuity is not included in the room fee.</p><div class="actions"><a class="btn primary" href="tel:+18625965986">Call Grace <span>→</span></a><a class="btn" href="sms:+18625965986">Text about an event <span>→</span></a></div></article></div></div></section>
+    <section id="story"><div class="shell"><div class="section-head reveal"><div class="section-label">03 · The story</div><h2>ROOTED HERE.<br>STILL MOVING.</h2><p class="section-copy">The future-facing design works because the history is real. The interface does not manufacture heritage—it gives Tierney's existing story room to breathe.</p></div><div class="timeline"><article class="era reveal"><time>1890s</time><h3>The family makes this property home.</h3><p>The Tierney family's connection to the Valley Road location begins decades before the tavern opens.</p></article><article class="era reveal"><time>1934</time><h3>Tierney's Tavern opens after Prohibition.</h3><p>A neighborhood bar begins serving Montclair and grows into a familiar local meeting place.</p></article><article class="era reveal"><time>Today</time><h3>The fifth generation joins the story.</h3><p>The bar, grill and upstairs room continue as a family-run business with many more decades in view.</p></article></div></div></section>
+    <section id="visit"><div class="shell"><div class="section-head reveal"><div class="section-label">04 · Visit</div><h2>FIND THE<br>VALLEY ROAD ORIGINAL.</h2><p class="section-copy">Directions, hours, parking and accessibility should be available in one thumb-friendly view—without making visitors hunt through a general FAQ.</p></div><div class="visit-grid"><article class="visit-card reveal"><div class="section-label">Tierney's Tavern</div><h3>Montclair, New Jersey</h3><div class="address">138 Valley Road<br>Montclair, NJ 07042<br><a href="tel:+18625965986">(862) 596-5986</a></div><div class="visit-facts"><div class="visit-fact"><strong>Bar hours</strong>Mon–Sat 11 AM–1 AM<br>Sun 12:30 PM–midnight</div><div class="visit-fact"><strong>Kitchen hours</strong>Mon–Sat 11 AM–11 PM<br>Sun 12:30 PM–10 PM</div><div class="visit-fact"><strong>Parking</strong>Large customer lot and designated accessible spaces</div><div class="visit-fact"><strong>Access</strong>Two sidewalk-accessible ground-floor entrances; no elevator upstairs</div><div class="visit-fact"><strong>Payments</strong>Cash, cards and Apple Pay; ATM inside</div><div class="visit-fact"><strong>Seating</strong>First come, first served; no current table reservations</div></div><div class="actions"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=40.822509225043%2C-74.219748973846" target="_blank" rel="noopener">Google Maps <span>↗</span></a><a class="btn" href="https://maps.apple.com/?ll=40.822509225043%2C-74.219748973846&amp;q=Tierney%27s%20Tavern" target="_blank" rel="noopener">Apple Maps <span>↗</span></a></div></article><div class="map-card reveal" id="map-card"><div class="map-placeholder" id="map-placeholder"><div class="map-orbit"><span class="pin" aria-hidden="true"></span></div></div><div class="map-copy"><span>40.822509225043<br>-74.219748973846</span><button class="map-load" id="map-load" type="button">Load interactive map</button></div></div></div></div></section>
+    <section><div class="shell final-cta reveal"><div class="section-label" style="justify-content:center">Where friends meet</div><h2>SEE YOU<br>AT TIERNEY'S.</h2><p>Come for a burger and a game, check the calendar for live events, or call Grace to plan something upstairs.</p><div class="actions"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=Tierney%27s%20Tavern%2C%20138%20Valley%20Road%2C%20Montclair%2C%20NJ%2007042" target="_blank" rel="noopener">Get directions <span>↗</span></a><a class="btn" href="tel:+18625965986">Call (862) 596-5986 <span>→</span></a></div></div></section>
+  </main>
+  <footer><div class="shell footer-grid"><div><div class="footer-title">TIERNEY'S // 1934 → ∞</div><p>Old soul. Live signal. No expiration date.</p></div><div class="footer-meta">Independent design concept by Prithiraj<br>Not affiliated with or endorsed by Tierney's Tavern<br>Venue information sourced from the official tavern website</div></div></footer>
+  <nav class="mobile-dock" aria-label="Mobile actions"><a href="#top">Home</a><a href="#food">Food</a><a href="#upstairs">Upstairs</a><a href="#visit">Directions</a></nav>
   <script type="module">
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const progress = document.querySelector('.progress');
-    const updateProgress = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
-    };
-    addEventListener('scroll', updateProgress, {passive:true});
-    updateProgress();
-
-    const clock = document.querySelector('#clock');
-    const clockFormatter = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-    const tickClock = () => { clock.textContent = `${clockFormatter.format(new Date())} ET`; };
-    tickClock(); setInterval(tickClock, 1000);
-
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
-    }), {threshold:.12,rootMargin:'0px 0px -5%'});
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    document.querySelectorAll('.ticket,.system-card,.doc-link').forEach(card => {
-      card.addEventListener('pointermove', event => {
-        if (reduceMotion || innerWidth < 800) return;
-        const r = card.getBoundingClientRect();
-        const x = (event.clientX - r.left) / r.width - .5;
-        const y = (event.clientY - r.top) / r.height - .5;
-        card.style.transform = `perspective(800px) rotateY(${x*3}deg) rotateX(${-y*3}deg) translateY(-4px)`;
-      });
-      card.addEventListener('pointerleave', () => card.style.transform = '');
-    });
-
-    if (!reduceMotion) {
-      try {
-        const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js');
-        const canvas = document.querySelector('#scene');
-        const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
-        renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-        renderer.setSize(innerWidth, innerHeight, false);
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-        const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x070908, .075);
-        const camera = new THREE.PerspectiveCamera(40, innerWidth/innerHeight, .1, 100);
-        camera.position.set(7.2, 4.1, 10.5);
-        camera.lookAt(0, .6, 0);
-
-        scene.add(new THREE.HemisphereLight(0xf0ebdd, 0x0d5134, 1.2));
-        const key = new THREE.DirectionalLight(0x62ff9d, 2.2); key.position.set(4,7,6); scene.add(key);
-        const warm = new THREE.PointLight(0xffb13b, 7, 12, 2); warm.position.set(-1,1.2,3.5); scene.add(warm);
-
-        const building = new THREE.Group();
-        building.position.set(2.2,-.45,-1.7);
-        building.rotation.y = -.42;
-        scene.add(building);
-
-        const wallMaterial = new THREE.MeshStandardMaterial({color:0x17201b,roughness:.86,metalness:.06,transparent:true,opacity:.78});
-        const beamMaterial = new THREE.MeshStandardMaterial({color:0x07100b,roughness:.74,metalness:.12});
-        const roofMaterial = new THREE.MeshStandardMaterial({color:0x111712,roughness:.92,metalness:.03,transparent:true,opacity:.92});
-        const glassMaterial = new THREE.MeshStandardMaterial({color:0xffb13b,emissive:0xff8a1f,emissiveIntensity:1.8,roughness:.3,metalness:.15});
-        const lineMaterial = new THREE.LineBasicMaterial({color:0x62ff9d,transparent:true,opacity:.42});
-
-        const outlined = mesh => { const edges = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), lineMaterial); edges.position.copy(mesh.position); edges.rotation.copy(mesh.rotation); edges.scale.copy(mesh.scale); mesh.parent.add(edges); return edges; };
-        const lower = new THREE.Group();
-        const upper = new THREE.Group();
-        const roof = new THREE.Group();
-        building.add(lower,upper,roof);
-
-        const lowerWall = new THREE.Mesh(new THREE.BoxGeometry(4.8,1.55,2.7), wallMaterial); lowerWall.position.y=.05; lower.add(lowerWall); outlined(lowerWall);
-        const upperWall = new THREE.Mesh(new THREE.BoxGeometry(4.8,1.42,2.7), wallMaterial); upperWall.position.y=1.53; upper.add(upperWall); outlined(upperWall);
-
-        const roofShape = new THREE.Shape(); roofShape.moveTo(-2.75,0); roofShape.lineTo(0,1.65); roofShape.lineTo(2.75,0); roofShape.closePath();
-        const roofGeometry = new THREE.ExtrudeGeometry(roofShape,{depth:3.15,bevelEnabled:false}); roofGeometry.center();
-        const roofMesh = new THREE.Mesh(roofGeometry,roofMaterial); roofMesh.position.y=2.82; roof.add(roofMesh); outlined(roofMesh);
-
-        const addBeam = (x,y,w,h,rotation=0,parent=upper) => { const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,.09),beamMaterial); m.position.set(x,y,1.395); m.rotation.z=rotation; parent.add(m); return m; };
-        addBeam(0,1.55,4.7,.13); addBeam(0,2.18,4.7,.12); addBeam(-1.58,1.84,.11,1.22); addBeam(0,1.84,.11,1.22); addBeam(1.58,1.84,.11,1.22);
-        addBeam(-.78,1.84,1.8,.1,.56); addBeam(.78,1.84,1.8,.1,-.56); addBeam(-2.05,1.84,1.2,.1,-.62); addBeam(2.05,1.84,1.2,.1,.62);
-        addBeam(0,.72,4.7,.12,0,lower); addBeam(-1.72,.08,.11,1.3,0,lower); addBeam(.2,.08,.11,1.3,0,lower); addBeam(1.8,.08,.11,1.3,0,lower);
-
-        const windowGeometry = new THREE.PlaneGeometry(.74,.66);
-        [[-1.55,1.72],[0,1.72],[1.55,1.72],[-1.25,.08],[.72,.08]].forEach(([x,y]) => { const w=new THREE.Mesh(windowGeometry,glassMaterial); w.position.set(x,y,1.415); (y>1?upper:lower).add(w); });
-        const door = new THREE.Mesh(new THREE.PlaneGeometry(.66,1.18),new THREE.MeshStandardMaterial({color:0x0b130e,roughness:.8})); door.position.set(1.72,-.08,1.418); lower.add(door);
-
-        const sign = new THREE.Mesh(new THREE.BoxGeometry(2.2,.28,.12),new THREE.MeshStandardMaterial({color:0x0d5134,emissive:0x0d5134,emissiveIntensity:.6})); sign.position.set(-.5,.62,1.49); lower.add(sign);
-
-        const grid = new THREE.GridHelper(30,30,0x0d5134,0x102119); grid.position.y=-1.25; grid.material.transparent=true; grid.material.opacity=.34; scene.add(grid);
-        const pointsGeometry = new THREE.BufferGeometry();
-        const pointCount = 520; const positions = new Float32Array(pointCount*3);
-        for(let i=0;i<pointCount;i++){positions[i*3]=(Math.random()-.5)*28;positions[i*3+1]=Math.random()*12-3;positions[i*3+2]=(Math.random()-.5)*24;}
-        pointsGeometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
-        const points = new THREE.Points(pointsGeometry,new THREE.PointsMaterial({color:0x62ff9d,size:.025,transparent:true,opacity:.46})); scene.add(points);
-        const scanner = new THREE.Mesh(new THREE.PlaneGeometry(8,.035),new THREE.MeshBasicMaterial({color:0x62ff9d,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false})); scanner.position.set(2,0,1); scanner.rotation.y=-.42; scene.add(scanner);
-
-        let pointerX=0,pointerY=0,exploded=false,running=true;
-        addEventListener('pointermove',e=>{pointerX=(e.clientX/innerWidth-.5);pointerY=(e.clientY/innerHeight-.5);},{passive:true});
-        document.querySelector('#scan-button').addEventListener('click',()=>{exploded=!exploded;document.querySelector('#scan-button').firstChild.textContent=exploded?'Reassemble architectural layers ':'Explode architectural layers ';document.querySelector('#scene-state').textContent=exploded?'Exploded scan':'Live wireframe';});
-        document.querySelector('#scene-state').textContent='Live wireframe';
-
-        const visibility = new IntersectionObserver(entries=>{running=entries[0]?.isIntersecting??true;},{threshold:0}); visibility.observe(document.querySelector('.hero'));
-        document.addEventListener('visibilitychange',()=>{running=!document.hidden});
-        const clock3 = new THREE.Clock();
-        const render = () => {
-          requestAnimationFrame(render); if(!running) return;
-          const t=clock3.getElapsedTime();
-          const scroll=Math.min(1,scrollY/Math.max(1,innerHeight*1.25));
-          scanner.position.y=-1+((t*.42)%1)*5.3;
-          scanner.material.opacity=.26+Math.sin(t*3)*.12;
-          points.rotation.y=t*.012; points.position.y=Math.sin(t*.2)*.08;
-          building.rotation.y += ((-.42+pointerX*.08+scroll*.16)-building.rotation.y)*.035;
-          building.rotation.x += ((pointerY*-.025)-building.rotation.x)*.03;
-          building.position.y += ((-.45-scroll*.35)-building.position.y)*.04;
-          upper.position.y += ((exploded?.65:0)-upper.position.y)*.055;
-          roof.position.y += ((exploded?1.4:0)-roof.position.y)*.055;
-          roof.rotation.z += ((exploded?.035:0)-roof.rotation.z)*.05;
-          camera.position.x += ((7.2-pointerX*.55-scroll*1.1)-camera.position.x)*.025;
-          camera.position.y += ((4.1+pointerY*.25-scroll*.6)-camera.position.y)*.025;
-          camera.lookAt(1.5,.65-scroll*.2,-1.4);
-          warm.intensity=6.4+Math.sin(t*.9)*.7;
-          renderer.render(scene,camera);
-        };
-        render();
-        addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight,false);});
-      } catch (error) {
-        console.warn('Three.js enhancement unavailable; continuing with complete static experience.', error);
-        document.querySelector('#scene-state').textContent='Static fallback';
-        document.querySelector('#scan-button').hidden=true;
-      }
-    } else {
-      document.querySelector('#scene-state').textContent='Reduced motion';
-      document.querySelector('#scan-button').hidden=true;
-    }
+    const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.classList.add('in');observer.unobserve(entry.target)})},{threshold:.12,rootMargin:'0px 0px -5%'});document.querySelectorAll('.reveal,.burger-stage').forEach(el=>observer.observe(el));
+    const getEasternNow=()=>{const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());return Object.fromEntries(parts.map(({type,value})=>[type,value]))};
+    const updateVenueState=()=>{const now=getEasternNow(),day=now.weekday,minutes=Number(now.hour)*60+Number(now.minute);let barOpen=false;if(day==='Sun')barOpen=minutes<60||minutes>=750;else if(day==='Mon')barOpen=minutes>=660;else barOpen=minutes<60||minutes>=660;let kitchenOpen=false;if(day==='Sun')kitchenOpen=minutes>=750&&minutes<1320;else kitchenOpen=minutes>=660&&minutes<1380;document.querySelector('#open-label').textContent=barOpen?'Open now':'Closed now';document.querySelector('#status-text').textContent=`${barOpen?'Bar open':'Bar closed'} · ${kitchenOpen?'kitchen serving':'kitchen closed'}`;document.querySelector('#status-text').classList.toggle('open',barOpen);document.querySelector('#bar-hours').textContent=day==='Sun'?'Sun 12:30 PM–midnight':'Mon–Sat 11 AM–1 AM';document.querySelector('#kitchen-hours').textContent=day==='Sun'?'Sun 12:30 PM–10 PM':'Mon–Sat 11 AM–11 PM'};updateVenueState();setInterval(updateVenueState,60000);
+    const room=document.querySelector('#room'),capacity=document.querySelector('#room-capacity'),roomModes={music:'Up to 135 standing',seated:'Approximately 55–60 seated',expanded:'Up to 100 with added furniture'};document.querySelectorAll('.mode').forEach(button=>{button.addEventListener('click',()=>{const mode=button.dataset.mode;room.dataset.mode=mode;capacity.textContent=roomModes[mode];document.querySelectorAll('.mode').forEach(item=>item.setAttribute('aria-pressed',String(item===button)))})});
+    document.querySelector('#map-load').addEventListener('click',event=>{const card=document.querySelector('#map-card'),iframe=document.createElement('iframe');iframe.title="Map showing Tierney's Tavern at 138 Valley Road, Montclair, New Jersey";iframe.src='https://www.google.com/maps?q=40.822509225043,-74.219748973846&z=18&output=embed';iframe.loading='lazy';iframe.referrerPolicy='no-referrer-when-downgrade';iframe.allowFullscreen=true;card.prepend(iframe);document.querySelector('#map-placeholder').remove();event.currentTarget.remove()},{once:true});
+    if(!reduceMotion&&'WebGLRenderingContext'in window){try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js'),card=document.querySelector('#scene-card'),canvas=document.querySelector('#facade-scene'),renderer=new THREE.WebGLRenderer({canvas,antialias:devicePixelRatio<2,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<700?1.25:1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x050806,.085);const camera=new THREE.PerspectiveCamera(38,1,.1,100);camera.position.set(8.4,4.9,11.8);camera.lookAt(0,.5,0);scene.add(new THREE.HemisphereLight(0xf2eddf,0x0d5134,1.45));const key=new THREE.DirectionalLight(0x62ff9d,2.6);key.position.set(5,7,7);scene.add(key);const warm=new THREE.PointLight(0xffb13b,9,16,2);warm.position.set(0,.5,4);scene.add(warm);const building=new THREE.Group();building.rotation.y=-.38;building.position.y=-.75;scene.add(building);const lower=new THREE.Group(),upper=new THREE.Group();building.add(lower,upper);const wallMat=new THREE.MeshStandardMaterial({color:0xbcb9aa,roughness:.88,metalness:.02}),darkMat=new THREE.MeshStandardMaterial({color:0x111812,roughness:.78,metalness:.08}),roofMat=new THREE.MeshStandardMaterial({color:0x151c16,roughness:.92,metalness:.02}),glowMat=new THREE.MeshStandardMaterial({color:0xffb13b,emissive:0xff8a1f,emissiveIntensity:1.3,roughness:.28}),lineMat=new THREE.LineBasicMaterial({color:0x62ff9d,transparent:true,opacity:.34});const addBox=(parent,size,pos,mat,rot=[0,0,0])=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),mat);mesh.position.set(...pos);mesh.rotation.set(...rot);parent.add(mesh);const edges=new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),lineMat.clone());edges.position.copy(mesh.position);edges.rotation.copy(mesh.rotation);parent.add(edges);return mesh};addBox(lower,[6.2,2.15,2.1],[0,.3,0],wallMat);addBox(lower,[1,1.75,.16],[0,-.12,1.12],darkMat);addBox(lower,[1.22,.72,.15],[-1.75,.3,1.13],glowMat);addBox(lower,[1.22,.72,.15],[1.75,.3,1.13],glowMat);addBox(lower,[6.55,.24,2.35],[0,1.38,0],darkMat);const shape=new THREE.Shape();shape.moveTo(-3.1,0);shape.lineTo(0,2.55);shape.lineTo(3.1,0);shape.closePath();const gableGeo=new THREE.ExtrudeGeometry(shape,{depth:2.1,bevelEnabled:false});gableGeo.translate(0,0,-1.05);const gable=new THREE.Mesh(gableGeo,wallMat);gable.position.y=1.38;upper.add(gable);const gableEdges=new THREE.LineSegments(new THREE.EdgesGeometry(gableGeo),lineMat.clone());gableEdges.position.copy(gable.position);upper.add(gableEdges);addBox(upper,[.22,2.65,.18],[0,2.4,1.12],darkMat);addBox(upper,[5.2,.2,.18],[0,2.38,1.13],darkMat);addBox(upper,[3.4,.18,.18],[-1.2,2.62,1.14],darkMat,[0,0,.7]);addBox(upper,[3.4,.18,.18],[1.2,2.62,1.14],darkMat,[0,0,-.7]);addBox(upper,[1.18,.75,.16],[0,2.28,1.14],glowMat);addBox(upper,[3.9,.18,2.42],[-1.48,3.05,0],roofMat,[0,0,.7]);addBox(upper,[3.9,.18,2.42],[1.48,3.05,0],roofMat,[0,0,-.7]);const signCanvas=document.createElement('canvas');signCanvas.width=1024;signCanvas.height=220;const ctx=signCanvas.getContext('2d');ctx.fillStyle='#050806';ctx.fillRect(0,0,1024,220);ctx.strokeStyle='#ffb13b';ctx.lineWidth=8;ctx.strokeRect(8,8,1008,204);ctx.fillStyle='#f2eddf';ctx.font='700 76px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText("TIERNEY'S TAVERN",512,112);const signTexture=new THREE.CanvasTexture(signCanvas);signTexture.colorSpace=THREE.SRGBColorSpace;const sign=new THREE.Mesh(new THREE.PlaneGeometry(3.6,.78),new THREE.MeshBasicMaterial({map:signTexture,transparent:true}));sign.position.set(0,1.72,1.18);upper.add(sign);const grid=new THREE.GridHelper(30,30,0x62ff9d,0x143b27);grid.position.y=-.85;grid.material.transparent=true;grid.material.opacity=.22;scene.add(grid);const particleCount=innerWidth<700?90:220,points=new Float32Array(particleCount*3);for(let i=0;i<particleCount;i++){points[i*3]=(Math.random()-.5)*18;points[i*3+1]=Math.random()*10-2;points[i*3+2]=(Math.random()-.5)*12}const pointGeo=new THREE.BufferGeometry();pointGeo.setAttribute('position',new THREE.BufferAttribute(points,3));scene.add(new THREE.Points(pointGeo,new THREE.PointsMaterial({color:0x62ff9d,size:.025,transparent:true,opacity:.46})));const scanner=new THREE.Mesh(new THREE.PlaneGeometry(8,.035),new THREE.MeshBasicMaterial({color:0x62ff9d,transparent:true,opacity:.72,side:THREE.DoubleSide}));scanner.rotation.x=Math.PI/2;scanner.position.set(0,-.3,1.9);building.add(scanner);const resize=()=>{const rect=card.getBoundingClientRect(),width=Math.max(1,rect.width),height=Math.max(1,rect.height);renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix()};new ResizeObserver(resize).observe(card);resize();let exploded=false,targetUpperY=0,pointerX=0,pointerY=0,visible=true;const toggle=document.querySelector('#scene-toggle');toggle.addEventListener('click',()=>{exploded=!exploded;targetUpperY=exploded?1.18:0;toggle.setAttribute('aria-pressed',String(exploded));toggle.textContent=exploded?'Reassemble':'Explode view';document.querySelector('#scene-readout').textContent=exploded?'Level 01 + Level 02':'Structural view'});card.addEventListener('pointermove',event=>{if(innerWidth<800)return;const rect=card.getBoundingClientRect();pointerX=((event.clientX-rect.left)/rect.width-.5)*.35;pointerY=((event.clientY-rect.top)/rect.height-.5)*.18});card.addEventListener('pointerleave',()=>{pointerX=0;pointerY=0});new IntersectionObserver(([entry])=>{visible=entry.isIntersecting},{threshold:.02}).observe(card);document.addEventListener('visibilitychange',()=>{visible=!document.hidden});const clock=new THREE.Clock();const animate=()=>{requestAnimationFrame(animate);if(!visible)return;const t=clock.getElapsedTime();upper.position.y+=(targetUpperY-upper.position.y)*.07;building.rotation.y+=((-.38+pointerX)-building.rotation.y)*.05;building.rotation.x+=((pointerY*.22)-building.rotation.x)*.05;building.position.y=-.75+Math.sin(t*.45)*.025;scanner.position.y=(t*.85)%5.7-.4;scanner.material.opacity=.28+.44*(.5+.5*Math.sin(t*2.2));renderer.render(scene,camera)};renderer.compile(scene,camera);renderer.render(scene,camera);card.classList.add('ready');animate()}catch(error){console.warn('Three.js enhancement unavailable; using the architectural SVG.',error)}}
   </script>
 </body>
 </html>
