@@ -20,21 +20,21 @@
       "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/1716838010324-ZNA0KK49R4NZCZPFBTR1/zDSC03336.jpg",
       "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
       "minimum_bytes": 25000,
-      "allowed_types": ["image/jpeg", "image/jpg"]
+      "allowed_types": ["image/jpeg", "image/jpg", "image/webp"]
     },
     {
       "path": "assets/reference/classic-cheeseburger-mike-eats-nyc-burgers.jpg",
       "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/1716838114328-MNJ2AR33055YZGYYZ9RT/zIMG_4191.jpg",
       "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
       "minimum_bytes": 25000,
-      "allowed_types": ["image/jpeg", "image/jpg"]
+      "allowed_types": ["image/jpeg", "image/jpg", "image/webp"]
     },
     {
       "path": "assets/reference/guinness-mural-mike-eats-nyc-burgers.jpg",
       "download_url": "https://images.squarespace-cdn.com/content/v1/5d59e574ce74150001a10bd2/9d81ddff-579f-4270-86f3-6d6f7cd64cb2/insideIMG_4218.jpg",
       "source_page": "https://www.mikeeatsnycburgers.com/reviews/tierneys-tavern",
       "minimum_bytes": 25000,
-      "allowed_types": ["image/jpeg", "image/jpg"]
+      "allowed_types": ["image/jpeg", "image/jpg", "image/webp"]
     },
     {
       "path": "assets/reference/upstairs-performance-bizzboard.jpg",
