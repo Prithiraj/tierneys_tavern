@@ -31,7 +31,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Download and validate every declared image
+      - name: Install image normalization dependency
+        run: python -m pip install --disable-pip-version-check --no-cache-dir Pillow
+
+      - name: Download, normalize, and validate every declared image
         run: python scripts/fetch_reference_assets.py
 
       - name: Generate exact-location QR code
