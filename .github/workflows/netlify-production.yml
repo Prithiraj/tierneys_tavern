@@ -41,9 +41,29 @@ jobs:
         with:
           node-version: 22
 
+      - name: Resolve connected Netlify URL
+        id: netlify-site
+        if: env.NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != ''
+        shell: bash
+        run: |
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+            "https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID" \
+            --output netlify-site.json
+
+          node <<'NODE'
+          const fs = require('fs');
+          const site = JSON.parse(fs.readFileSync('netlify-site.json', 'utf8'));
+          const url = site.ssl_url || site.url;
+          if (!url) throw new Error('The connected Netlify project has no public URL');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `url=${url.replace(/\/$/, '')}\n`);
+          console.log(`CANONICAL_URL=${url}`);
+          NODE
+
       - name: Build public-only bundle
         env:
           COMMIT_SHA: ${{ github.sha }}
+          PUBLIC_SITE_URL: ${{ steps.netlify-site.outputs.url }}
         run: bash scripts/build_netlify.sh
 
       - name: Verify outreach constraints
