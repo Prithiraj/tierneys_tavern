@@ -1,6 +1,16 @@
 name: Deploy Tierney's concept to GitHub Pages
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - assets/reference/**
+      - assets/site.css
+      - assets/site.js
+      - scripts/build_site.sh
+      - scripts/generate_public_assets.py
+      - .github/workflows/pages.yml
   workflow_dispatch:
 
 permissions:
@@ -8,9 +18,76 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 jobs:
-  staging:
-    name: Deployment update in progress
+  build:
+    name: Build real-photo outreach site
     runs-on: ubuntu-latest
+    timeout-minutes: 12
+
     steps:
-      - run: echo "The real-photo GitHub Pages implementation is being staged."
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build public-only bundle
+        id: site
+        shell: bash
+        run: |
+          SITE_URL="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}"
+          echo "url=$SITE_URL" >> "$GITHUB_OUTPUT"
+          COMMIT_SHA="$GITHUB_SHA" PUBLIC_SITE_URL="$SITE_URL" bash scripts/build_site.sh
+
+      - name: Verify real-photo, menu, and Pages constraints
+        env:
+          SITE_URL: ${{ steps.site.outputs.url }}
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test -s dist/assets/site.css
+          test -s dist/assets/site.js
+          test -s dist/404.html
+          test -e dist/.nojekyll
+          test -s dist/assets/public/tierneys-social-card.jpg
+          test -s dist/assets/images/exterior-hero.webp
+          test -s dist/assets/images/buddy-burger.webp
+          test -s dist/assets/images/upstairs-performance.webp
+          test -s dist/assets/images/family-behind-bar.webp
+          test -s dist/assets/images/classic-cheeseburger.webp
+          test -s dist/assets/images/mural-stairs.webp
+          ! grep -R -i -E "research before render|real asset board|<svg class=\"burger\"|stylized stacked burger illustration|WEBSITE_DESIGN_PLAN|ASSET_MANIFEST|netlify" dist
+          grep -F "$SITE_URL/assets/public/tierneys-social-card.jpg" dist/index.html
+          grep -F "<link rel=\"canonical\" href=\"$SITE_URL/\">" dist/index.html
+          grep -F "Price provenance:" dist/index.html
+          grep -F "February 2014" dist/index.html
+          test "$(find dist -type f | wc -l)" -le 26
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          include-hidden-files: true
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
