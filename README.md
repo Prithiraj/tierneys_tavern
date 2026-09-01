@@ -19,6 +19,12 @@ A mobile-first, future-heritage website concept for Tierney's Tavern in Montclai
 
 The customer-facing build does **not** publish the design-research section, source manifest, dated prototype events, collected editorial photographs, lorem ipsum, fabricated pricing, or placeholders.
 
+## Next visual implementation
+
+- [Section-by-section real image and verified menu replacement plan](REAL_IMAGE_AND_MENU_REPLACEMENT_PLAN.md)
+
+This plan specifies the exact replacements for the procedural exterior, SVG burger, upstairs diagram, story section, gallery, menu pricing, events, accessibility imagery, and WhatsApp preview. It also defines the owner-approval and build-validation rules required before real third-party or business-supplied photography is published.
+
 ## GitHub Pages deployment
 
 The active deployment workflow is:
@@ -44,7 +50,7 @@ Repository Settings
 → Source: GitHub Actions
 ```
 
-The repository is private, so the GitHub account must have a plan that supports Pages for private repositories. The published site remains marked `noindex` because it is an independent outreach concept rather than Tierney's official website.
+The repository is public, so GitHub Pages can be published without a paid private-repository Pages entitlement. The published site remains marked `noindex` because it is an independent outreach concept rather than Tierney's official website.
 
 ## Local production build
 
