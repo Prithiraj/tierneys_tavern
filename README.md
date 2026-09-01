@@ -43,13 +43,13 @@ The active deployment workflow is:
 
 It builds optimized JPEG/WebP derivatives from the real reference files, creates the photographic sharing card, validates the outreach constraints, uploads the Pages artifact, and publishes from the `github-pages` environment.
 
-Expected passwordless address:
+Passwordless address:
 
 ```text
 https://prithiraj.github.io/tierneys_tavern/
 ```
 
-If Pages has not yet been enabled:
+If Pages needs to be re-enabled:
 
 ```text
 Repository Settings
@@ -58,7 +58,7 @@ Repository Settings
 → Source: GitHub Actions
 ```
 
-Then run **Deploy Tierney's concept to GitHub Pages** from the Actions tab, or push another change to `main`.
+Then run **Deploy Tierney's concept to GitHub Pages** from the Actions tab, or push another relevant change to `main`.
 
 The site remains marked `noindex` because it is an independent outreach concept rather than Tierney's official website.
 
@@ -81,9 +81,9 @@ Montclair, New Jersey 07042
 (862) 596-5986
 ```
 
-## Private development archive
+## Development archive (not deployed)
 
-The repository also retains:
+The public repository also retains:
 
 - [Complete website design plan](WEBSITE_DESIGN_PLAN.md)
 - [Machine-readable venue location](location/tierneys-tavern.json)
