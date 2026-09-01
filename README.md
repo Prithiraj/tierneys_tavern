@@ -4,26 +4,34 @@ A mobile-first, future-heritage website concept for Tierney's Tavern in Montclai
 
 ## Public outreach site
 
-[`index.html`](index.html) is the business-facing outreach experience. It contains:
+[`index.html`](index.html) is the business-facing experience. It now uses real Tierney's imagery instead of illustrated stand-ins:
 
-- A responsive, thumb-friendly layout
-- An optional Three.js architectural Tavern scene with an SVG fallback
-- Current published bar and kitchen hours with an Eastern Time status indicator
-- Real menu categories and the required kitchen/allergen notice
+- Real Valley Road exterior photograph with a transparent Three.js scan overlay
+- Real Buddy Burger and classic cheeseburger photography
+- Real upstairs performance photograph with an optional layout guide
+- Real Tierney family photograph beside the verified history timeline
+- Real mural and stair image in the inside-the-tavern gallery
+- Current published hours with an Eastern Time open/closed indicator
+- Official menu categories and kitchen/allergen notice
+- A clearly dated official legacy price snapshot for demonstrating the menu interface
 - Actual upstairs rental terms and capacity information
-- Tierney's family timeline
 - Exact Google Maps and Apple Maps directions
 - Deferred map loading for mobile performance and privacy
-- An original 1200 × 630 social card for WhatsApp and link previews
-- Clear independent-concept labeling
+- A photographic 1200 × 630 WhatsApp/Open Graph card
+- Clear independent-concept labeling and image credits
 
-The customer-facing build does **not** publish the design-research section, source manifest, dated prototype events, collected editorial photographs, lorem ipsum, fabricated pricing, or placeholders.
+The customer-facing build does **not** publish the research dossier, source manifest, fabricated prices, generic stock photography, lorem ipsum, or the previous SVG burger.
 
-## Next visual implementation
+## Important source status
 
-- [Section-by-section real image and verified menu replacement plan](REAL_IMAGE_AND_MENU_REPLACEMENT_PLAN.md)
+The public concept uses attributed real photographs already collected in the repository. Those images remain the property of their respective photographers and publishers. They are suitable for this noncommercial design concept, but an official Tierney's launch should replace them with owner-supplied originals or obtain written commercial permission.
 
-This plan specifies the exact replacements for the procedural exterior, SVG burger, upstairs diagram, story section, gallery, menu pricing, events, accessibility imagery, and WhatsApp preview. It also defines the owner-approval and build-validation rules required before real third-party or business-supplied photography is published.
+The displayed numeric menu prices are not represented as current. They come from Tierney's official legacy menu, which marks them as **February 2014**. Current prices should be supplied or approved by Tierney's before an official release. The Buddy Burger price is deliberately omitted rather than guessed.
+
+See:
+
+- [Real-image and menu replacement plan](REAL_IMAGE_AND_MENU_REPLACEMENT_PLAN.md)
+- [Image and rights manifest](ASSET_MANIFEST.md)
 
 ## GitHub Pages deployment
 
@@ -33,15 +41,15 @@ The active deployment workflow is:
 .github/workflows/pages.yml
 ```
 
-It builds the public-only bundle, validates the outreach constraints, uploads the Pages artifact, and publishes from the `github-pages` environment. The expected passwordless address is:
+It builds optimized JPEG/WebP derivatives from the real reference files, creates the photographic sharing card, validates the outreach constraints, uploads the Pages artifact, and publishes from the `github-pages` environment.
+
+Expected passwordless address:
 
 ```text
 https://prithiraj.github.io/tierneys_tavern/
 ```
 
-No Netlify token, site ID, visitor password, or external hosting account is required. The old Netlify workflow and configuration have been removed.
-
-If Pages has not previously been enabled for this repository, select:
+If Pages has not yet been enabled:
 
 ```text
 Repository Settings
@@ -50,7 +58,9 @@ Repository Settings
 → Source: GitHub Actions
 ```
 
-The repository is public, so GitHub Pages can be published without a paid private-repository Pages entitlement. The published site remains marked `noindex` because it is an independent outreach concept rather than Tierney's official website.
+Then run **Deploy Tierney's concept to GitHub Pages** from the Actions tab, or push another change to `main`.
+
+The site remains marked `noindex` because it is an independent outreach concept rather than Tierney's official website.
 
 ## Local production build
 
@@ -59,7 +69,7 @@ PUBLIC_SITE_URL="https://prithiraj.github.io/tierneys_tavern" \
   bash scripts/build_site.sh
 ```
 
-The command creates `dist/`, generates the original social card, rejects research-only content, validates the HTML and PNG output, writes deployment metadata, and adds `.nojekyll` for static publishing.
+The command creates `dist/`, generates optimized real-photo assets, creates the photographic social card, rejects research-only and illustrated-stand-in content, validates the HTML and image output, writes deployment metadata, and adds `.nojekyll`.
 
 ## Venue point
 
@@ -71,14 +81,13 @@ Montclair, New Jersey 07042
 (862) 596-5986
 ```
 
-## Private research archive
+## Private development archive
 
-The repository retains the full creative direction, attributed image references, rights notes, and machine-readable location research for development use:
+The repository also retains:
 
 - [Complete website design plan](WEBSITE_DESIGN_PLAN.md)
-- [Image and rights manifest](ASSET_MANIFEST.md)
 - [Machine-readable venue location](location/tierneys-tavern.json)
 - [GeoJSON point](location/tierneys-tavern.geojson)
 - [Reference-asset collector](scripts/fetch_reference_assets.py)
 
-These research files are not copied into the public GitHub Pages artifact.
+These development files are not copied into the GitHub Pages artifact.

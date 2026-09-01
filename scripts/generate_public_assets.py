@@ -1,13 +1,70 @@
 #!/usr/bin/env python3
-"""Generate original, rights-safe artwork for the public Tierney's concept build."""
+"""Build web-ready real-photo assets for the Tierney's Tavern outreach site."""
 
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
+
+
+@dataclass(frozen=True)
+class AssetSpec:
+    source: str
+    output: str
+    size: tuple[int, int]
+    centering: tuple[float, float] = (0.5, 0.5)
+    credit: str = ""
+
+
+ASSETS = (
+    AssetSpec(
+        "assets/reference/tierneys-exterior-montclair-girl.jpg",
+        "exterior-hero",
+        (1600, 1200),
+        (0.5, 0.5),
+        "The Montclair Girl",
+    ),
+    AssetSpec(
+        "assets/reference/buddy-burger-mike-eats-nyc-burgers.jpg",
+        "buddy-burger",
+        (1200, 1200),
+        (0.5, 0.5),
+        "Mike Eats NYC Burgers",
+    ),
+    AssetSpec(
+        "assets/reference/classic-cheeseburger-mike-eats-nyc-burgers.jpg",
+        "classic-cheeseburger",
+        (1200, 1200),
+        (0.5, 0.5),
+        "Mike Eats NYC Burgers",
+    ),
+    AssetSpec(
+        "assets/reference/upstairs-performance-bizzboard.jpg",
+        "upstairs-performance",
+        (1400, 1050),
+        (0.5, 0.5),
+        "BiZZBoard reference",
+    ),
+    AssetSpec(
+        "assets/reference/tierney-family-northjersey.jpg",
+        "family-behind-bar",
+        (1400, 933),
+        (0.5, 0.5),
+        "NorthJersey / Gannett",
+    ),
+    AssetSpec(
+        "assets/reference/guinness-mural-mike-eats-nyc-burgers.jpg",
+        "mural-stairs",
+        (1200, 1200),
+        (0.5, 0.5),
+        "Mike Eats NYC Burgers",
+    ),
+)
 
 
 def font_path(pattern: str, fallback: str) -> str:
@@ -26,131 +83,145 @@ def font_path(pattern: str, fallback: str) -> str:
     return fallback
 
 
-def build_social_card(destination: Path) -> None:
-    width, height = 1200, 630
-    image = Image.new("RGB", (width, height), (5, 8, 6))
-    pixels = image.load()
+def open_rgb(path: Path) -> Image.Image:
+    with Image.open(path) as source:
+        image = ImageOps.exif_transpose(source).convert("RGB")
+    return image
 
+
+def build_variant(source: Path, output_dir: Path, spec: AssetSpec) -> dict[str, object]:
+    image = open_rgb(source)
+    target = ImageOps.fit(
+        image,
+        spec.size,
+        method=Image.Resampling.LANCZOS,
+        centering=spec.centering,
+    )
+    target = ImageEnhance.Contrast(target).enhance(1.025)
+
+    jpg = output_dir / f"{spec.output}.jpg"
+    webp = output_dir / f"{spec.output}.webp"
+    target.save(jpg, "JPEG", quality=88, optimize=True, progressive=True, subsampling="4:2:0")
+    target.save(webp, "WEBP", quality=83, method=6)
+
+    return {
+        "name": spec.output,
+        "source": spec.source,
+        "credit": spec.credit,
+        "width": target.width,
+        "height": target.height,
+        "jpg_bytes": jpg.stat().st_size,
+        "webp_bytes": webp.stat().st_size,
+    }
+
+
+def build_social_card(exterior_source: Path, destination: Path) -> None:
+    width, height = 1200, 630
+    photo = open_rgb(exterior_source)
+    photo = ImageOps.fit(
+        photo,
+        (width, height),
+        method=Image.Resampling.LANCZOS,
+        centering=(0.58, 0.48),
+    )
+    photo = ImageEnhance.Color(photo).enhance(0.78)
+    photo = ImageEnhance.Contrast(photo).enhance(1.06)
+    photo = ImageEnhance.Brightness(photo).enhance(0.72).convert("RGBA")
+
+    overlay = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    overlay_px = overlay.load()
     for y in range(height):
         for x in range(width):
-            dx, dy = (x - 900) / 700, (y - 120) / 500
-            green_light = max(0, 1 - (dx * dx + dy * dy)) * 0.18
-            ax, ay = (x - 150) / 700, (y - 560) / 500
-            amber_light = max(0, 1 - (ax * ax + ay * ay)) * 0.06
-            pixels[x, y] = (
-                int(5 + 8 * green_light + 20 * amber_light),
-                int(8 + 58 * green_light + 12 * amber_light),
-                int(6 + 30 * green_light + 3 * amber_light),
-            )
+            horizontal = max(0.0, min(1.0, 1.16 - x / 760))
+            vertical = max(0.0, min(1.0, (y / height - 0.60) * 2.0))
+            alpha = int(25 + 202 * horizontal + 72 * vertical)
+            overlay_px[x, y] = (5, 8, 6, min(alpha, 238))
+
+    image = Image.alpha_composite(photo, overlay)
+
+    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow)
+    glow_draw.ellipse((660, 30, 1260, 650), fill=(13, 81, 52, 76))
+    glow = glow.filter(ImageFilter.GaussianBlur(120))
+    image = Image.alpha_composite(image, glow)
 
     draw = ImageDraw.Draw(image)
     signal_green = (98, 255, 157)
     paper_bone = (242, 237, 223)
-    smoke = (169, 179, 173)
-    beer_amber = (255, 177, 59)
+    smoke = (191, 201, 195)
 
     for x in range(0, width, 48):
-        draw.line((x, 0, x, height), fill=(12, 35, 23), width=1)
+        draw.line((x, 0, x, height), fill=(98, 255, 157, 18), width=1)
     for y in range(0, height, 48):
-        draw.line((0, y, width, y), fill=(12, 35, 23), width=1)
-
-    origin_x, origin_y = 710, 115
-    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow)
-    facade = [
-        (origin_x + 40, origin_y + 185),
-        (origin_x + 235, origin_y + 5),
-        (origin_x + 430, origin_y + 185),
-        (origin_x + 430, origin_y + 430),
-        (origin_x + 40, origin_y + 430),
-    ]
-    glow_draw.polygon(facade, fill=(98, 255, 157, 18), outline=(98, 255, 157, 120), width=4)
-    glow = glow.filter(ImageFilter.GaussianBlur(14))
-    image = Image.alpha_composite(image.convert("RGBA"), glow)
-    draw = ImageDraw.Draw(image)
-
-    draw.polygon(facade, fill=(178, 178, 161, 255), outline=(98, 255, 157, 120))
-    draw.rectangle((origin_x + 28, origin_y + 350, origin_x + 442, origin_y + 442), fill=(24, 31, 25, 255))
-    draw.line(
-        (origin_x + 26, origin_y + 185, origin_x + 235, origin_y - 6, origin_x + 444, origin_y + 185),
-        fill=(14, 20, 15, 255),
-        width=24,
-        joint="curve",
-    )
-    draw.line(
-        (origin_x + 75, origin_y + 183, origin_x + 235, origin_y + 42, origin_x + 395, origin_y + 183),
-        fill=(30, 39, 31, 255),
-        width=14,
-        joint="curve",
-    )
-
-    beam_segments = [
-        ((origin_x + 235, origin_y + 32), (origin_x + 235, origin_y + 348)),
-        ((origin_x + 45, origin_y + 185), (origin_x + 425, origin_y + 185)),
-        ((origin_x + 75, origin_y + 265), (origin_x + 395, origin_y + 265)),
-        ((origin_x + 105, origin_y + 185), (origin_x + 235, origin_y + 300)),
-        ((origin_x + 365, origin_y + 185), (origin_x + 235, origin_y + 300)),
-    ]
-    for start, end in beam_segments:
-        draw.line((*start, *end), fill=(25, 33, 26, 255), width=14)
-
-    windows = [
-        (origin_x + 90, origin_y + 290, origin_x + 175, origin_y + 350),
-        (origin_x + 295, origin_y + 290, origin_x + 380, origin_y + 350),
-        (origin_x + 190, origin_y + 205, origin_x + 280, origin_y + 260),
-    ]
-    for box in windows:
-        draw.rectangle(box, fill=(125, 78, 28, 255), outline=(255, 177, 59, 220), width=3)
-
-    draw.rectangle(
-        (origin_x + 205, origin_y + 352, origin_x + 265, origin_y + 442),
-        fill=(6, 10, 7, 255),
-        outline=(98, 255, 157, 90),
-        width=2,
-    )
-    draw.rounded_rectangle(
-        (origin_x + 95, origin_y + 120, origin_x + 375, origin_y + 168),
-        6,
-        fill=(5, 8, 6, 255),
-        outline=(255, 177, 59, 210),
-        width=3,
-    )
+        draw.line((0, y, width, y), fill=(98, 255, 157, 13), width=1)
+    draw.line((0, 505, width, 505), fill=(98, 255, 157, 120), width=2)
+    draw.line((735, 0, 735, height), fill=(98, 255, 157, 70), width=1)
 
     sans = font_path("DejaVu Sans", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
-    sans_bold = font_path("DejaVu Sans:style=Bold", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
-    mono = font_path("DejaVu Sans Mono", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf")
-
-    sign_font = ImageFont.truetype(sans_bold, 24)
-    mono_font = ImageFont.truetype(mono, 22)
-    small_font = ImageFont.truetype(sans, 28)
-    large_font = ImageFont.truetype(sans_bold, 78)
-    outline_font = ImageFont.truetype(sans_bold, 74)
-    label_font = ImageFont.truetype(mono, 16)
-
-    draw.text((origin_x + 235, origin_y + 144), "TIERNEY'S TAVERN", anchor="mm", font=sign_font, fill=paper_bone)
-    draw.text((72, 66), "MONTCLAIR, NEW JERSEY // EST. 1934", font=mono_font, fill=signal_green)
-    draw.text((70, 130), "WHERE", font=large_font, fill=paper_bone)
-    draw.text((70, 210), "FRIENDS", font=outline_font, fill=(5, 8, 6), stroke_width=2, stroke_fill=paper_bone)
-    draw.text((70, 288), "MEET.", font=large_font, fill=paper_bone)
-    draw.text((74, 405), "A future-heritage website concept for", font=small_font, fill=smoke)
-    draw.text((74, 444), "a five-generation neighborhood tavern.", font=small_font, fill=smoke)
-    draw.line((74, 520, 560, 520), fill=(98, 255, 157, 100), width=2)
-    draw.text((74, 544), "TIERNEY'S // 1934 → ∞", font=mono_font, fill=signal_green)
-    draw.rounded_rectangle(
-        (938, 548, 1127, 590),
-        4,
-        outline=(98, 255, 157, 130),
-        fill=(5, 8, 6, 210),
-        width=2,
+    sans_bold = font_path(
+        "DejaVu Sans:style=Bold",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     )
-    draw.text((1032, 569), "INDEPENDENT CONCEPT", anchor="mm", font=label_font, fill=signal_green)
-    draw.line((660, 0, 660, height), fill=(98, 255, 157, 100), width=2)
+    mono = font_path(
+        "DejaVu Sans Mono",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+    )
+
+    label_font = ImageFont.truetype(mono, 20)
+    title_font = ImageFont.truetype(sans_bold, 78)
+    outline_font = ImageFont.truetype(sans_bold, 72)
+    body_font = ImageFont.truetype(sans, 27)
+    tiny_font = ImageFont.truetype(mono, 14)
+
+    draw.text((66, 58), "MONTCLAIR, NEW JERSEY // EST. 1934", font=label_font, fill=signal_green)
+    draw.text((64, 126), "WHERE", font=title_font, fill=paper_bone)
+    draw.text(
+        (64, 204),
+        "FRIENDS",
+        font=outline_font,
+        fill=(5, 8, 6),
+        stroke_width=2,
+        stroke_fill=paper_bone,
+    )
+    draw.text((64, 280), "MEET.", font=title_font, fill=paper_bone)
+    draw.text((68, 402), "A real-photo, mobile-first website concept", font=body_font, fill=smoke)
+    draw.text((68, 440), "for a five-generation neighborhood tavern.", font=body_font, fill=smoke)
+    draw.text((68, 541), "TIERNEY'S // 1934 → ∞", font=label_font, fill=signal_green)
+    draw.rounded_rectangle((930, 548, 1135, 590), 4, fill=(5, 8, 6, 210), outline=(98, 255, 157, 150), width=2)
+    draw.text((1032, 569), "INDEPENDENT CONCEPT", anchor="mm", font=tiny_font, fill=signal_green)
+    draw.text((824, 608), "Exterior photo: The Montclair Girl", font=tiny_font, fill=(215, 221, 217))
 
     destination.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(destination, optimize=True, quality=92)
+    image.convert("RGB").save(destination, "JPEG", quality=90, optimize=True, progressive=True)
+
+
+def main() -> None:
+    if len(sys.argv) != 3:
+        raise SystemExit("Usage: generate_public_assets.py <repository-root> <dist-root>")
+
+    root = Path(sys.argv[1]).resolve()
+    dist = Path(sys.argv[2]).resolve()
+    image_output = dist / "assets" / "images"
+    public_output = dist / "assets" / "public"
+    image_output.mkdir(parents=True, exist_ok=True)
+    public_output.mkdir(parents=True, exist_ok=True)
+
+    manifest: list[dict[str, object]] = []
+    for spec in ASSETS:
+        source = root / spec.source
+        if not source.is_file() or source.stat().st_size == 0:
+            raise SystemExit(f"Missing real-photo source: {spec.source}")
+        manifest.append(build_variant(source, image_output, spec))
+
+    exterior = root / ASSETS[0].source
+    build_social_card(exterior, public_output / "tierneys-social-card.jpg")
+    (image_output / "credits.json").write_text(
+        json.dumps({"usage": "attributed noncommercial concept", "images": manifest}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    print(f"Generated {len(manifest)} real-photo asset pairs and a photographic social card")
 
 
 if __name__ == "__main__":
-    output = Path(sys.argv[1] if len(sys.argv) > 1 else "dist/assets/public/tierneys-social-card.png")
-    build_social_card(output)
-    print(f"Generated {output} ({output.stat().st_size:,} bytes)")
+    main()

@@ -11,6 +11,14 @@ export COMMIT_SHA="${COMMIT_SHA:-local}"
 required=(
   "index.html"
   "scripts/generate_public_assets.py"
+  "assets/site.css"
+  "assets/site.js"
+  "assets/reference/tierneys-exterior-montclair-girl.jpg"
+  "assets/reference/buddy-burger-mike-eats-nyc-burgers.jpg"
+  "assets/reference/classic-cheeseburger-mike-eats-nyc-burgers.jpg"
+  "assets/reference/upstairs-performance-bizzboard.jpg"
+  "assets/reference/tierney-family-northjersey.jpg"
+  "assets/reference/guinness-mural-mike-eats-nyc-burgers.jpg"
 )
 
 for relative in "${required[@]}"; do
@@ -22,20 +30,21 @@ for relative in "${required[@]}"; do
 done
 
 rm -rf "$DIST" "$VENV"
-mkdir -p "$DIST/assets/public"
+mkdir -p "$DIST/assets"
 cp "$ROOT/index.html" "$DIST/index.html"
+cp "$ROOT/assets/site.css" "$DIST/assets/site.css"
+cp "$ROOT/assets/site.js" "$DIST/assets/site.js"
 
 if python3 -c 'import PIL' >/dev/null 2>&1; then
-  python3 "$ROOT/scripts/generate_public_assets.py" "$DIST/assets/public/tierneys-social-card.png"
+  python3 "$ROOT/scripts/generate_public_assets.py" "$ROOT" "$DIST"
 else
   python3 -m venv "$VENV"
   "$VENV/bin/python" -m pip install --disable-pip-version-check --quiet "Pillow==12.3.0"
-  "$VENV/bin/python" "$ROOT/scripts/generate_public_assets.py" "$DIST/assets/public/tierneys-social-card.png"
+  "$VENV/bin/python" "$ROOT/scripts/generate_public_assets.py" "$ROOT" "$DIST"
   rm -rf "$VENV"
 fi
 
-# The site is uploaded as a prebuilt artifact; this also protects future
-# branch-based publishing from an unintended Jekyll pass.
+# GitHub Pages receives a prebuilt static artifact; prevent an unintended Jekyll pass.
 touch "$DIST/.nojekyll"
 
 cat > "$DIST/robots.txt" <<'ROBOTS'
@@ -69,9 +78,9 @@ HTML
 python3 - "$DIST" <<'PY'
 from html.parser import HTMLParser
 from pathlib import Path
+from PIL import Image
 import json
 import os
-import struct
 import sys
 
 class Parser(HTMLParser):
@@ -83,9 +92,9 @@ source = index.read_text(encoding="utf-8")
 public_url = os.environ.get("PUBLIC_SITE_URL", "").strip().rstrip("/")
 
 if public_url:
-    social_url = f"{public_url}/assets/public/tierneys-social-card.png"
+    social_url = f"{public_url}/assets/public/tierneys-social-card.jpg"
     source = source.replace(
-        'content="/assets/public/tierneys-social-card.png"',
+        'content="assets/public/tierneys-social-card.jpg"',
         f'content="{social_url}"',
     )
     source = source.replace(
@@ -99,33 +108,62 @@ if public_url:
 for forbidden in (
     "RESEARCH BEFORE RENDER",
     "REAL ASSET BOARD",
-    "assets/reference/",
+    "<svg class=\"burger\"",
+    "Stylized stacked burger illustration",
     "WEBSITE_DESIGN_PLAN.md",
     "ASSET_MANIFEST.md",
 ):
     if forbidden.lower() in source.lower():
-        raise SystemExit(f"Public index contains forbidden dossier content: {forbidden}")
+        raise SystemExit(f"Public index contains forbidden dossier or stand-in content: {forbidden}")
+
+for required_text in (
+    "assets/images/exterior-hero.webp",
+    "assets/images/buddy-burger.webp",
+    "assets/images/upstairs-performance.webp",
+    "assets/images/family-behind-bar.webp",
+    "Price provenance:",
+    "February 2014",
+):
+    if required_text not in source:
+        raise SystemExit(f"Public index is missing required real-photo/menu content: {required_text}")
 
 for page in (index, root / "404.html"):
     parser = Parser()
     parser.feed(page.read_text(encoding="utf-8"))
 
-social = root / "assets" / "public" / "tierneys-social-card.png"
-raw = social.read_bytes()
-if raw[:8] != b"\x89PNG\r\n\x1a\n":
-    raise SystemExit("Generated social card is not a valid PNG")
-width, height = struct.unpack(">II", raw[16:24])
-if (width, height) != (1200, 630):
-    raise SystemExit(f"Unexpected social-card dimensions: {width}x{height}")
+expected = {
+    "assets/images/exterior-hero.jpg": (1600, 1200),
+    "assets/images/exterior-hero.webp": (1600, 1200),
+    "assets/images/buddy-burger.jpg": (1200, 1200),
+    "assets/images/buddy-burger.webp": (1200, 1200),
+    "assets/images/classic-cheeseburger.jpg": (1200, 1200),
+    "assets/images/classic-cheeseburger.webp": (1200, 1200),
+    "assets/images/upstairs-performance.jpg": (1400, 1050),
+    "assets/images/upstairs-performance.webp": (1400, 1050),
+    "assets/images/family-behind-bar.jpg": (1400, 933),
+    "assets/images/family-behind-bar.webp": (1400, 933),
+    "assets/images/mural-stairs.jpg": (1200, 1200),
+    "assets/images/mural-stairs.webp": (1200, 1200),
+    "assets/public/tierneys-social-card.jpg": (1200, 630),
+}
+for relative, dimensions in expected.items():
+    path = root / relative
+    if not path.is_file() or path.stat().st_size == 0:
+        raise SystemExit(f"Missing generated public image: {relative}")
+    with Image.open(path) as image:
+        if image.size != dimensions:
+            raise SystemExit(f"Unexpected dimensions for {relative}: {image.size}")
 
 meta = {
-    "project": "Tierney's Tavern passwordless mobile outreach concept",
+    "project": "Tierney's Tavern real-photo mobile outreach concept",
     "venue": "138 Valley Road, Montclair, NJ 07042",
     "coordinates": [40.822509225043, -74.219748973846],
     "source_commit": os.environ.get("COMMIT_SHA", "local"),
     "public_site_url": public_url or None,
     "deployment_type": "github-pages, passwordless, noindex, independent concept",
-    "third_party_editorial_photos_published": False,
+    "real_photos_published": True,
+    "photo_usage": "attributed noncommercial concept references; owner/licensor approval required for official launch",
+    "menu_price_status": "archived official price snapshot marked February 2014; not represented as current",
 }
 (root / "deploy-meta.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 print(f"Validated and staged {sum(1 for p in root.rglob('*') if p.is_file())} public files in {root}")
