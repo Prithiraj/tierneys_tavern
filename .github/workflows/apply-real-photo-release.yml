@@ -59,11 +59,12 @@ jobs:
           test -s dist/index.html
           test -s dist/assets/images/exterior-hero.webp
           test -s dist/assets/images/buddy-burger.webp
-          test -s dist/assets/images/upstairs.webp
-          test -s dist/assets/images/family.webp
+          test -s dist/assets/images/upstairs-performance.webp
+          test -s dist/assets/images/family-behind-bar.webp
           test -s dist/assets/public/tierneys-social-card.jpg
           ! grep -R -i -E '<svg class="burger"|research before render|real asset board' dist
-          grep -F "Prices shown are an archival snapshot" dist/index.html
+          grep -F "Price provenance:" dist/index.html
+          grep -F "February 2014" dist/index.html
 
       - name: Commit finished implementation
         shell: bash
